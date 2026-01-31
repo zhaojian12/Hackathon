@@ -1,0 +1,50 @@
+{
+    "app": {
+        "title": "CSTPG",
+        "subtitle": "Conflux Stablecoin Trusted Payment Gateway"
+    },
+    "wallet": {
+        "connect": "Connect Fluent",
+        "connecting": "Connecting...",
+        "not_installed": "Fluent Wallet Not Installed",
+        "switch_net": "Please switch to Conflux Testnet"
+    },
+    "trade": {
+        "item": "Trade",
+        "create_new": "Create New Trade",
+        "init_desc": "Initiate a secure escrow transaction.",
+        "seller_addr": "Seller Address",
+        "amount": "Amount (cUSD)",
+        "desc": "Description",
+        "create_btn": "Create Trade",
+        "creating": "Creating...",
+        "list_title": "Trades",
+        "clear_history": "Clear History",
+        "no_trades": "No trades found.",
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "status": {
+            "waiting": "Waiting for Buyer Deposit",
+            "locked": "Locked (In Escrow)",
+            "released": "Completed",
+            "cancelled": "Cancelled"
+        },
+        "actions": {
+            "deposit": "Deposit Funds",
+            "release": "Release Funds",
+            "cancel": "Cancel",
+            "wait_confirm": "Waiting Confirmation..."
+        }
+    },
+    "faucet": {
+        "mint": "Mint Test cUSD",
+        "mint_success": "Minted 1000 cUSD!",
+        "mint_failed": "Mint failed"
+    },
+    "common": {
+        "success": "Success!",
+        "error": "Error: {{message}}",
+        "fill_all": "Please fill all fields",
+        "connect_first": "Please connect wallet first"
+    }
+}

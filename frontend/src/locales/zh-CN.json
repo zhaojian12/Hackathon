@@ -1,0 +1,50 @@
+{
+    "app": {
+        "title": "CSTPG",
+        "subtitle": "Conflux 稳定币支付网关"
+    },
+    "wallet": {
+        "connect": "连接钱包",
+        "connecting": "连接中...",
+        "not_installed": "未检测到 Fluent 钱包",
+        "switch_net": "请切换到 Conflux 测试网"
+    },
+    "trade": {
+        "item": "交易",
+        "create_new": "创建新交易",
+        "init_desc": "发起一笔安全的担保交易。",
+        "seller_addr": "卖家地址",
+        "amount": "金额 (cUSD)",
+        "desc": "交易描述",
+        "create_btn": "创建交易",
+        "creating": "创建中...",
+        "list_title": "交易列表",
+        "clear_history": "清空列表",
+        "no_trades": "暂无交易。",
+        "buyer": "买家",
+        "seller": "卖家",
+        "status": {
+            "waiting": "等待买家存款",
+            "locked": "托管中 (资金已锁定)",
+            "released": "已完成",
+            "cancelled": "已取消"
+        },
+        "actions": {
+            "deposit": "存入资金",
+            "release": "确认收货 (释放资金)",
+            "cancel": "取消交易",
+            "wait_confirm": "等待确认中..."
+        }
+    },
+    "faucet": {
+        "mint": "领取测试 cUSD",
+        "mint_success": "已成功领取 1000 cUSD！",
+        "mint_failed": "领取失败"
+    },
+    "common": {
+        "success": "成功！",
+        "error": "错误：{{message}}",
+        "fill_all": "请填写所有字段",
+        "connect_first": "请先连接钱包"
+    }
+}

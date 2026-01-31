@@ -1,0 +1,50 @@
+{
+    "app": {
+        "title": "CSTPG",
+        "subtitle": "Conflux 穩定幣支付網關"
+    },
+    "wallet": {
+        "connect": "連接錢包",
+        "connecting": "連接中...",
+        "not_installed": "未檢測到 Fluent 錢包",
+        "switch_net": "請切換到 Conflux 測試網"
+    },
+    "trade": {
+        "item": "交易",
+        "create_new": "創建新交易",
+        "init_desc": "發起一筆安全的擔保交易。",
+        "seller_addr": "賣家地址",
+        "amount": "金額 (cUSD)",
+        "desc": "交易描述",
+        "create_btn": "創建交易",
+        "creating": "創建中...",
+        "list_title": "交易列表",
+        "clear_history": "清空列表",
+        "no_trades": "暫無交易。",
+        "buyer": "買家",
+        "seller": "賣家",
+        "status": {
+            "waiting": "等待買家存款",
+            "locked": "託管中 (資金已鎖定)",
+            "released": "已完成",
+            "cancelled": "已取消"
+        },
+        "actions": {
+            "deposit": "存入資金",
+            "release": "確認收貨 (釋放資金)",
+            "cancel": "取消交易",
+            "wait_confirm": "等待確認中..."
+        }
+    },
+    "faucet": {
+        "mint": "領取測試 cUSD",
+        "mint_success": "已成功領取 1000 cUSD！",
+        "mint_failed": "領取失敗"
+    },
+    "common": {
+        "success": "成功！",
+        "error": "錯誤：{{message}}",
+        "fill_all": "請填寫所有字段",
+        "connect_first": "請先連接錢包"
+    }
+}
