@@ -19,8 +19,9 @@ function AppContent() {
         <LanguageSwitcher />
       </div>
 
-      {/* Ask AI 按钮 - 右上角，钱包按钮左侧 */}
-      <div style={{ position: 'absolute', top: '1rem', right: '24rem' }}>
+      {/* 右上角按钮组 - Ask AI 和连接钱包 */}
+      <div style={{ position: 'absolute', top: '1rem', right: '1rem', display: 'flex', alignItems: 'center', gap: '20px' }}>
+        {/* Ask AI 按钮 */}
         <button
           type="button"
           onClick={() => setIsAssistantOpen(true)}
@@ -55,9 +56,8 @@ function AppContent() {
           </svg>
           Ask AI
         </button>
-      </div>
 
-      <div className="connect-wallet-container">
+        {/* 连接钱包按钮 */}
         <ConnectWallet />
       </div>
 
