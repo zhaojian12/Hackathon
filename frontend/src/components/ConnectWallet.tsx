@@ -2,9 +2,26 @@ import { useApp } from '../AppContext';
 import { Wallet, LogIn } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+// 检测钱包类型的辅助函数
+const getWalletIcon = () => {
+    if (typeof window === 'undefined') return null;
+    
+    if (window.okxwallet) {
+        return '🦊 OKX';
+    }
+    if (window.ethereum?.isMetaMask) {
+        return '🦊 MetaMask';
+    }
+    if (window.conflux?.isFluent) {
+        return '💧 Fluent';
+    }
+    return '🔗';
+};
+
 export const ConnectWallet = () => {
     const { account, balance, connectWallet, loading } = useApp();
     const { t } = useTranslation();
+    const walletIcon = getWalletIcon();
 
     if (account) {
         return (
@@ -14,6 +31,7 @@ export const ConnectWallet = () => {
                 </span>
                 <button className="flex-between" disabled style={{ gap: '0.5rem', opacity: 1, cursor: 'default' }}>
                     <Wallet size={18} />
+                    {walletIcon && <span style={{ marginRight: '0.25rem' }}>{walletIcon}</span>}
                     {account.slice(0, 6)}...{account.slice(-4)}
                 </button>
             </div>
