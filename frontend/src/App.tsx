@@ -6,12 +6,19 @@ import { TradeList } from './components/TradeList';
 import { Faucet } from './components/Faucet';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { PopupAssistant } from './components/PopupAssistant';
+import { LandingPage } from './components/LandingPage';
 import { useTranslation } from 'react-i18next';
 import './index.css';
 
 function AppContent() {
   const { t } = useTranslation();
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
+
+  // Show landing page first
+  if (showLanding) {
+    return <LandingPage onEnter={() => setShowLanding(false)} />;
+  }
 
   return (
     <div>

@@ -1,0 +1,48 @@
+.landing-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+  z-index: 9999;
+}
+
+/* 可点击的透明按钮区域 - 覆盖在 3D 场景的按钮位置上 */
+.landing-clickable-area {
+  position: absolute;
+  width: 18vw;  /* 使用视口宽度单位保持响应式 */
+  height: 10vh; /* 使用视口高度单位保持响应式 */
+  top: 55%;     /* 垂直位置 */
+  left: 20%;    /* 水平位置 */
+  transform: translate(-50%, -50%); /* 居中对齐 */
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  z-index: 10;
+}
+
+.landing-clickable-area:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 4px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .landing-clickable-area {
+    width: 30vw;
+    height: 15vh;
+    top: 60%;
+    left: 50%;
+  }
+}
+
+/* 可访问性 - 减少动画 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
