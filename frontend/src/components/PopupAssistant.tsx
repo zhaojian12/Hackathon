@@ -25,10 +25,10 @@ export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
   
   // 开场白按钮选项
   const quickActions = [
-    'What is this platform?',
-    'How to create a trade?',
-    'How to accept a trade?',
-    'What are the main features?'
+    'How to connect MetaMask to CSTPG?',
+    'Explain how the escrow system on CSTPG works.',
+    'Provide best practices for safe trading on CSTPG.',
+    'What are the transaction fees on CSTPG?'
   ];
   
   // 判断是否显示开场白按钮
