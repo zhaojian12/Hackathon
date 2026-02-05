@@ -1,13 +1,55 @@
 {
     "app": {
-        "title": "CSTPG",
-        "subtitle": "Conflux 稳定币支付网关"
+        "title": "Nexus PayFi",
+        "subtitle": "面向中小企业的一站式跨境结算 PoC"
     },
     "wallet": {
         "connect": "连接钱包",
         "connecting": "连接中...",
         "not_installed": "未检测到 Fluent 钱包",
         "switch_net": "请切换到 Conflux 测试网"
+    },
+    "home": {
+        "hero_title": "Nexus PayFi",
+        "hero_subtitle_1": "中小企业一站式跨境",
+        "hero_subtitle_2": "结算解决方案 PoC",
+        "hero_desc": "通过区块链技术，将传统大宗贸易转化为链上可信的信用资产。",
+        "get_started": "开始使用",
+        "nav": {
+            "home": "首页",
+            "products": "产品",
+            "financing": "使用场景",
+            "pools": "资金池"
+        },
+        "features": {
+            "stablecoin": {
+                "title": "稳定币结算",
+                "desc": "通过 Conflux 链上即时、低成本的稳定币交易，规避汇率风险。"
+            },
+            "escrow": {
+                "title": "智能托管",
+                "desc": "基于透明的链上触发条件，实现无需信任的自动化资金释放。"
+            },
+            "finance": {
+                "title": "普惠金融",
+                "desc": "专为“一带一路”中小企业量身定制的低成本金融工具。"
+            }
+        },
+        "advantages": {
+            "title": "核心优势",
+            "fast": {
+                "title": "快速结算",
+                "desc": "秒级到账，相比银行电汇缩短数天"
+            },
+            "secure": {
+                "title": "安全透明",
+                "desc": "智能合约保障交易互信"
+            },
+            "low_cost": {
+                "title": "低成本",
+                "desc": "Conflux 网络极低的手续费"
+            }
+        }
     },
     "trade": {
         "item": "交易",
@@ -46,5 +88,38 @@
         "error": "错误：{{message}}",
         "fill_all": "请填写所有字段",
         "connect_first": "请先连接钱包"
+    },
+    "financing": {
+        "title": "Conflux 稳定币托管支付网关 (CSTPG)",
+        "subtitle": "面向中小企业的一站式跨境结算 PoC",
+        "needs": {
+            "title": "主要痛点",
+            "desc": "“一带一路”沿线国家众多，金融基础设施和监管环境差异大。对于多国的中小企业（SMEs）而言，进行跨境贸易结算时，常常面临：",
+            "items": [
+                "<strong>高昂的银行手续费和汇兑损失：</strong>传统银行电汇SWIFT费用高，且涉及多币种兑换，汇率波动带来额外成本。",
+                "<strong>漫长的结算周期：</strong>银行间清算通常需要数天，影响资金周转效率。",
+                "<strong>信任缺失与履约风险：</strong>尤其是与新贸易伙伴合作时，买方担心支付后不发货，卖方担心发货后不付款，传统信用证（LC）对SMEs而言成本过高且流程复杂。"
+            ]
+        },
+        "solution": {
+            "title": "PayFi 创新与解决方案",
+            "desc": "CSTPG 旨在通过 Conflux 链上的稳定币和智能合约，为中小企业提供一个低成本、高效率、高信任的跨境结算解决方案。",
+            "point1": {
+                "title": "1. 稳定币作为结算媒介",
+                "items": [
+                    "<strong>创新点：</strong>避免了传统外汇交易中的汇率波动风险和高昂的兑换费用。买卖双方可以直接以 Conflux 上的锚定美元稳定币进行结算。",
+                    "<strong>效率提升：</strong>区块链交易几乎是即时完成的，相较于数日的银行清算，资金流转效率大幅提升。",
+                    "<strong>成本降低：</strong>Conflux 网络的交易手续费远低于传统银行电汇费用。"
+                ]
+            },
+            "point2": {
+                "title": "2. 智能合约驱动的托管支付 (Escrow Payment)",
+                "items": [
+                    "<strong>创新点：</strong>利用智能合约的自动化和不可篡改性，构建一个去中心化的托管机制，替代传统银行信用证的部分功能。",
+                    "<strong>信任提升：</strong>买方资金被锁定，卖方只有在满足特定条件后才能获取；卖方见证资金托管后即可安心发货。",
+                    "<strong>效率提升：</strong>一旦履约条件达成（例如，货物物流状态更新），智能合约将自动执行资金释放，无需人工干预。"
+                ]
+            }
+        }
     }
 }

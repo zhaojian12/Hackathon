@@ -1,13 +1,55 @@
 {
     "app": {
-        "title": "CSTPG",
-        "subtitle": "Conflux Stablecoin Trusted Payment Gateway"
+        "title": "Nexus PayFi",
+        "subtitle": "SME One-stop Cross-border Settlement PoC"
     },
     "wallet": {
         "connect": "Connect Fluent",
         "connecting": "Connecting...",
         "not_installed": "Fluent Wallet Not Installed",
         "switch_net": "Please switch to Conflux Testnet"
+    },
+    "home": {
+        "hero_title": "Nexus PayFi",
+        "hero_subtitle_1": "SME One-stop Cross-border",
+        "hero_subtitle_2": "Settlement PoC",
+        "hero_desc": "Transform traditional commodity trade into on-chain financeable credit assets through blockchain technology.",
+        "get_started": "Get Started",
+        "nav": {
+            "home": "Home",
+            "products": "Products",
+            "financing": "Financing",
+            "pools": "Pools"
+        },
+        "features": {
+            "stablecoin": {
+                "title": "Stablecoin Settlement",
+                "desc": "Avoid exchange rate risks with instant, low-cost stablecoin transactions on Conflux."
+            },
+            "escrow": {
+                "title": "Smart Escrow",
+                "desc": "Trustless, automated funds release based on transparent on-chain triggers."
+            },
+            "finance": {
+                "title": "Inclusive Finance",
+                "desc": "Low-cost financial tools tailored for SMEs in the Belt and Road Initiative."
+            }
+        },
+        "advantages": {
+            "title": "Core Advantages",
+            "fast": {
+                "title": "Fast Settlement",
+                "desc": "Instant transfers vs. days for banks"
+            },
+            "secure": {
+                "title": "Secure & Transparent",
+                "desc": "Smart contracts ensure trust"
+            },
+            "low_cost": {
+                "title": "Low Cost",
+                "desc": "Minimal fees on Conflux Network"
+            }
+        }
     },
     "trade": {
         "item": "Trade",
@@ -46,5 +88,38 @@
         "error": "Error: {{message}}",
         "fill_all": "Please fill all fields",
         "connect_first": "Please connect wallet first"
+    },
+    "financing": {
+        "title": "Conflux Stablecoin Trusted Payment Gateway (CSTPG)",
+        "subtitle": "One-stop Cross-border Settlement PoC for SMEs",
+        "needs": {
+            "title": "Identifying Needs",
+            "desc": "With diverse financial infrastructures along the 'Belt and Road', SMEs often face challenges in cross-border settlements:",
+            "items": [
+                "<strong>High Fees & Exchange Losses:</strong> SWIFT fees are high, and multi-currency exchanges incur volatile costs.",
+                "<strong>Long Settlement Cycles:</strong> Inter-bank clearing takes days, affecting capital turnover.",
+                "<strong>Trust & Compliance Risks:</strong> Risk of non-delivery or non-payment, especially with new partners. LCs are too costly for SMEs."
+            ]
+        },
+        "solution": {
+            "title": "PayFi Innovation & Solution",
+            "desc": "CSTPG leverages Conflux stablecoins and smart contracts to provide a low-cost, high-efficiency, trusted settlement solution.",
+            "point1": {
+                "title": "1. Stablecoin as Medium",
+                "items": [
+                    "<strong>Innovation:</strong> Avoids exchange rate risks and high fees. Direct settlement in USD-pegged stablecoins.",
+                    "<strong>Efficiency:</strong> Near-instant blockchain transactions vs. days for bank clearing.",
+                    "<strong>Cost Reduction:</strong> Minimal transaction fees on Conflux Network."
+                ]
+            },
+            "point2": {
+                "title": "2. Smart Contract Driven Escrow",
+                "items": [
+                    "<strong>Innovation:</strong> Decentralized escrow mechanism via smart contracts, replacing part of traditional LCs.",
+                    "<strong>Trust:</strong> Funds locked until conditions met. Sellers ship with confidence knowing funds are secured.",
+                    "<strong>Efficiency:</strong> Automatic fund release upon fulfillment (e.g., logistics update), no manual intervention."
+                ]
+            }
+        }
     }
 }
