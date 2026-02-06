@@ -8,13 +8,17 @@ import requests
 import time
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+
+# 加载 .env 文件
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # Ollama API 配置
 OLLAMA_API = os.getenv("OLLAMA_API", "http://localhost:11434/api/generate")
-MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
+MODEL_NAME = os.getenv("MODEL_NAME", "qwen3:4b-instruct-2507-q4_K_M")
 
 print("=" * 60)
 print("Hackathon AI 助手服务器")

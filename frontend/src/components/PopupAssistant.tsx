@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { sendCozeMessageStream } from '../lib/coze-api';
+import { sendAIMessageStream, type AIMessage } from '../lib/ai-service';
 
 interface PopupAssistantProps {
   isOpen: boolean;
@@ -16,19 +16,19 @@ interface Message {
 export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: 'need more help?', sender: 'assistant' }
+    { id: 1, text: '你好！我是 Hackathon 智能助手，有什么可以帮您？', sender: 'assistant' }
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const [userId] = useState(() => `user_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`);
+  const [conversationHistory, setConversationHistory] = useState<AIMessage[]>([]);
   const assistantMessageIdRef = useRef<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // 开场白按钮选项
   const quickActions = [
-    'How to connect MetaMask to CSTPG?',
-    'Explain how the escrow system on CSTPG works.',
-    'Provide best practices for safe trading on CSTPG.',
-    'What are the transaction fees on CSTPG?'
+    '如何连接钱包？',
+    '如何获取测试币？',
+    '交易需要多长时间？',
+    '支持哪些钱包？'
   ];
   
   // 判断是否显示开场白按钮
@@ -63,11 +63,12 @@ export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
     }]);
     
     try {
-      await sendCozeMessageStream(
+      // 调用本地 Ollama 后端
+      const response = await sendAIMessageStream(
         userMessage,
-        userId,
+        conversationHistory,
         (chunk: string) => {
-          // 严格更新助手消息
+          // 流式更新助手消息
           setMessages(prev => prev.map(msg => {
             if (msg.id === assistantMessageIdRef.current && msg.sender === 'assistant') {
               return { ...msg, text: msg.text + chunk };
@@ -76,11 +77,18 @@ export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
           }));
         }
       );
+
+      // 更新对话历史
+      setConversationHistory(prev => [
+        ...prev,
+        { role: 'user', content: userMessage },
+        { role: 'assistant', content: response }
+      ]);
     } catch (error) {
-      console.error('Failed to get response from Coze:', error);
+      console.error('AI 服务请求失败:', error);
       setMessages(prev => prev.map(msg => 
         msg.id === assistantMessageIdRef.current
-          ? { ...msg, text: error instanceof Error ? error.message : 'Failed to send message, please try again later.' }
+          ? { ...msg, text: error instanceof Error ? error.message : '抱歉，AI 服务暂时不可用，请稍后再试。' }
           : msg
       ));
     } finally {
@@ -183,7 +191,7 @@ export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Powered by Coze AI</span>
+            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Powered by Ollama (本地推理)</span>
             <span style={{ width: '8px', height: '8px', backgroundColor: '#10b981', borderRadius: '50%' }}></span>
           </div>
         </div>
@@ -283,7 +291,7 @@ export function PopupAssistant({ isOpen, onClose }: PopupAssistantProps) {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && !isLoading && handleSend()}
-              placeholder="Enter message..."
+              placeholder="输入您的问题..."
               disabled={isLoading}
               style={{
                 flex: 1,
