@@ -9,11 +9,12 @@ import { PopupAssistant } from './components/PopupAssistant';
 import { LandingPage } from './components/LandingPage';
 import { RiskAssessment } from './components/RiskAssessment';
 import { DisputeArbitration } from './components/DisputeArbitration';
+import { CreditScore } from './components/CreditScore';
 import { Logo } from './components/Logo';
 import { useTranslation } from 'react-i18next';
 import './index.css';
 
-type Page = 'home' | 'risk' | 'dispute' | 'trades';
+type Page = 'home' | 'risk' | 'dispute' | 'credit' | 'trades';
 
 function AppContent() {
   const { t } = useTranslation();
@@ -104,6 +105,22 @@ function AppContent() {
             >
               ⚖️ 争议仲裁
             </button>
+            
+            <button
+              onClick={() => setCurrentPage('credit')}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                background: currentPage === 'credit' ? 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)' : 'transparent',
+                color: currentPage === 'credit' ? '#fff' : '#a1a1aa',
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+            >
+              🏆 信用评分
+            </button>
           </div>
         </div>
 
@@ -189,6 +206,8 @@ function AppContent() {
         {currentPage === 'risk' && <RiskAssessment />}
         
         {currentPage === 'dispute' && <DisputeArbitration />}
+        
+        {currentPage === 'credit' && <CreditScore />}
       </div>
 
       {/* AI Assistant 弹窗 */}
