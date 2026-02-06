@@ -3,6 +3,38 @@
         "title": "CSTPG",
         "subtitle": "Conflux Stablecoin Trusted Payment Gateway"
     },
+    "nav": {
+        "home": "Home",
+        "risk_assessment": "Risk Assessment",
+        "trades": "Trade Management"
+    },
+    "risk": {
+        "title": "Smart Risk Assessment System",
+        "subtitle": "AI-Powered Transaction Risk Analysis & Alert",
+        "form": {
+            "amount": "Amount (cUSD)",
+            "description": "Description",
+            "buyer_address": "Buyer Address",
+            "seller_address": "Seller Address",
+            "analyze_btn": "Analyze Risk",
+            "analyzing": "Analyzing..."
+        },
+        "result": {
+            "title": "Risk Assessment Report",
+            "score": "Risk Score",
+            "level": "Risk Level",
+            "level_low": "Low Risk",
+            "level_medium": "Medium Risk",
+            "level_high": "High Risk",
+            "reasons": "Risk Reasons",
+            "recommendation": "Recommendation",
+            "escrow_duration": "Suggested Escrow Duration",
+            "days": "days",
+            "continue": "Continue Transaction",
+            "yes": "Recommended",
+            "no": "Not Recommended"
+        }
+    },
     "wallet": {
         "connect": "Connect Fluent",
         "connecting": "Connecting...",

@@ -3,6 +3,38 @@
         "title": "CSTPG",
         "subtitle": "Conflux 稳定币支付网关"
     },
+    "nav": {
+        "home": "首页",
+        "risk_assessment": "风险评估",
+        "trades": "交易管理"
+    },
+    "risk": {
+        "title": "智能风险评估系统",
+        "subtitle": "AI 驱动的交易风险分析与预警",
+        "form": {
+            "amount": "交易金额 (cUSD)",
+            "description": "交易描述",
+            "buyer_address": "买家地址",
+            "seller_address": "卖家地址",
+            "analyze_btn": "分析风险",
+            "analyzing": "分析中..."
+        },
+        "result": {
+            "title": "风险评估报告",
+            "score": "风险评分",
+            "level": "风险等级",
+            "level_low": "低风险",
+            "level_medium": "中风险",
+            "level_high": "高风险",
+            "reasons": "风险原因",
+            "recommendation": "建议",
+            "escrow_duration": "建议托管时长",
+            "days": "天",
+            "continue": "是否继续交易",
+            "yes": "建议继续",
+            "no": "不建议继续"
+        }
+    },
     "wallet": {
         "connect": "连接钱包",
         "connecting": "连接中...",
