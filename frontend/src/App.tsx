@@ -8,11 +8,12 @@ import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { PopupAssistant } from './components/PopupAssistant';
 import { LandingPage } from './components/LandingPage';
 import { RiskAssessment } from './components/RiskAssessment';
+import { DisputeArbitration } from './components/DisputeArbitration';
 import { Logo } from './components/Logo';
 import { useTranslation } from 'react-i18next';
 import './index.css';
 
-type Page = 'home' | 'risk' | 'trades';
+type Page = 'home' | 'risk' | 'dispute' | 'trades';
 
 function AppContent() {
   const { t } = useTranslation();
@@ -86,6 +87,22 @@ function AppContent() {
               }}
             >
               {t('nav.risk_assessment')}
+            </button>
+            
+            <button
+              onClick={() => setCurrentPage('dispute')}
+              style={{
+                padding: '0.5rem 1rem',
+                borderRadius: '8px',
+                border: 'none',
+                background: currentPage === 'dispute' ? 'linear-gradient(135deg, #FFA500 0%, #FF8C00 100%)' : 'transparent',
+                color: currentPage === 'dispute' ? '#fff' : '#a1a1aa',
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+            >
+              ⚖️ 争议仲裁
             </button>
           </div>
         </div>
@@ -170,6 +187,8 @@ function AppContent() {
         )}
 
         {currentPage === 'risk' && <RiskAssessment />}
+        
+        {currentPage === 'dispute' && <DisputeArbitration />}
       </div>
 
       {/* AI Assistant 弹窗 */}
