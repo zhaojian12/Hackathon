@@ -20,6 +20,7 @@
 - ✅ 多语言支持（中文/英文/繁体中文）
 - ✅ 实时余额显示
 - ✅ 交易状态追踪
+- ✅ **AI 智能助手**（基于 Ollama 本地推理）
 
 ## 🚀 快速开始
 
@@ -56,6 +57,12 @@ npm run dev
 - [快速开始（中文）](./frontend/快速开始.md) - 中文版快速指南
 - [安装指南](./frontend/INSTALLATION.md) - 详细安装步骤
 
+### AI 助手文档
+- [AI 助手完整指南](./启动AI助手完整指南.md) - 从零开始配置 AI 助手
+- [后端 API 文档](./backend/README.md) - AI 服务器详细文档
+- [前端集成指南](./frontend/AI_ASSISTANT_SETUP.md) - 前端集成步骤
+- [集成总结](./AI_ASSISTANT_INTEGRATION.md) - 技术实现总结
+
 ### 开发文档
 - [钱包集成](./frontend/WALLET_INTEGRATION.md) - 技术实现详解
 - [项目总结](./MULTI_WALLET_SUMMARY.md) - 架构和变更说明
@@ -65,22 +72,34 @@ npm run dev
 
 ```
 Hackathon/
-├── frontend/                 # 前端应用
+├── frontend/                      # 前端应用
 │   ├── src/
-│   │   ├── components/      # React 组件
-│   │   ├── config/          # 配置文件
-│   │   ├── contracts/       # 合约 ABI
-│   │   ├── locales/         # 国际化文件
-│   │   ├── App.tsx          # 主应用
-│   │   └── AppContext.tsx   # 应用上下文
-│   ├── QUICKSTART.md        # 快速开始
-│   ├── INSTALLATION.md      # 安装指南
-│   └── WALLET_INTEGRATION.md # 钱包集成文档
-├── backend/                 # 后端（智能合约）
-│   ├── contracts/           # Solidity 合约
-│   └── scripts/             # 部署脚本
-├── MULTI_WALLET_SUMMARY.md  # 项目总结
-└── CHANGELOG.md             # 更新日志
+│   │   ├── components/           # React 组件
+│   │   ├── config/               # 配置文件
+│   │   ├── contracts/            # 合约 ABI
+│   │   ├── locales/              # 国际化文件
+│   │   ├── App.tsx               # 主应用
+│   │   └── AppContext.tsx        # 应用上下文
+│   ├── QUICKSTART.md             # 快速开始
+│   ├── INSTALLATION.md           # 安装指南
+│   ├── WALLET_INTEGRATION.md     # 钱包集成文档
+│   └── AI_ASSISTANT_SETUP.md     # AI 助手集成指南
+├── backend/                       # AI 助手后端
+│   ├── ai_assistant_server.py    # Flask 服务器
+│   ├── requirements.txt          # Python 依赖
+│   ├── start_server.bat          # Windows 启动脚本
+│   ├── start_server.sh           # macOS/Linux 启动脚本
+│   ├── check_setup.py            # 环境检查脚本
+│   ├── test_api.py               # API 测试脚本
+│   ├── README.md                 # 后端文档
+│   └── 快速开始.md                # 中文快速指南
+├── contract/                      # 智能合约
+│   ├── contracts/                # Solidity 合约
+│   └── scripts/                  # 部署脚本
+├── 启动AI助手完整指南.md           # AI 助手完整指南
+├── AI_ASSISTANT_INTEGRATION.md   # AI 集成总结
+├── MULTI_WALLET_SUMMARY.md       # 项目总结
+└── CHANGELOG.md                  # 更新日志
 ```
 
 ## 🔧 技术栈
@@ -92,6 +111,12 @@ Hackathon/
 - **Wagmi** - EVM 钱包连接
 - **js-conflux-sdk** - Conflux SDK
 - **React i18next** - 国际化
+
+### 后端（AI 助手）
+- **Flask** - Web 框架
+- **Ollama** - 本地 AI 推理引擎
+- **Qwen2.5** - 中文 AI 模型
+- **Python 3.8+** - 编程语言
 
 ### 区块链
 - **Conflux eSpace** - EVM 兼容层
