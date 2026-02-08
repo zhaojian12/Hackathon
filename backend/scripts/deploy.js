@@ -1,99 +1,122 @@
-import { Conflux } from "js-conflux-sdk";
+import hre from "hardhat";
 import fs from "fs";
 import path from "path";
-import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function main() {
-    // Use Conflux Core Space Testnet
-    const conflux = new Conflux({
-        url: "https://test.confluxrpc.com",
-        networkId: 1,
-        logger: console,
-    });
+    const [deployer] = await hre.ethers.getSigners();
+    console.log("Deploying contracts with the account:", deployer.address);
 
-    let account;
-    let privateKey = process.env.PRIVATE_KEY;
-    if (privateKey) {
-        if (!privateKey.startsWith("0x")) {
-            privateKey = "0x" + privateKey;
-        }
-        account = conflux.wallet.addPrivateKey(privateKey);
-    } else {
-        console.log("No PRIVATE_KEY found in .env");
-        console.log("Generating random wallet for simulation...");
-        account = conflux.wallet.addRandom();
-        console.log(`Generated Wallet Address: ${account.address}`);
-        console.log(`Generated Private Key: ${account.privateKey}`);
-        console.log("Please fund this address with CFX testnet tokens to deploy.");
-        // For non-interactive/CI, we can't proceed without funds.
-        // But we will try to proceed to see if it fails on gas.
-    }
+    const balance = await hre.ethers.provider.getBalance(deployer.address);
+    console.log("Account balance:", hre.ethers.formatEther(balance));
 
-    const balance = await conflux.cfx.getBalance(account.address);
-    console.log(`Balance of ${account.address}: ${balance} Drip`);
+    // Deploy AXCNH (MockERC20)
+    const MockERC20 = await hre.ethers.getContractFactory("MockERC20");
+    console.log("Deploying MockERC20 (AXCNH)...");
+    const axcnh = await MockERC20.deploy("Asia-Pacific CNY Stable", "AXCNH");
+    await axcnh.waitForDeployment();
+    const axcnhAddress = await axcnh.getAddress();
+    console.log("AXCNH deployed to:", axcnhAddress);
 
-    if (balance === 0n && !process.env.PRIVATE_KEY) {
-        console.error("Insufficient funds. Please provide a PRIVATE_KEY in .env or fund the generated wallet.");
-        process.exit(1);
-    }
+    // Deploy USDT (MockERC20)
+    console.log("Deploying MockERC20 (USDT)...");
+    const usdt = await MockERC20.deploy("Mock USDT", "USDT");
+    await usdt.waitForDeployment();
+    const usdtAddress = await usdt.getAddress();
+    console.log("USDT deployed to:", usdtAddress);
 
-    const loadArtifact = (name) => {
-        const p = path.join(__dirname, `../artifacts/contracts/${name}.sol/${name}.json`);
-        if (!fs.existsSync(p)) {
-            throw new Error(`Artifact not found at ${p}. Did you run 'npx hardhat compile'?`);
-        }
-        const content = fs.readFileSync(p, "utf-8");
-        return JSON.parse(content);
-    }
-
-    const mockERC20Artifact = loadArtifact("MockERC20");
-    const escrowArtifact = loadArtifact("Escrow");
-
-    // Deploy MockERC20
-    console.log("Deploying MockERC20...");
-    const mockToken = conflux.Contract({
-        abi: mockERC20Artifact.abi,
-        bytecode: mockERC20Artifact.bytecode
-    });
-
-    let receipt;
-    try {
-        receipt = await mockToken.constructor().sendTransaction({ from: account.address }).executed();
-    } catch (e) {
-        console.error("Deployment failed:", e);
-        process.exit(1);
-    }
-    console.log("MockERC20 deployed at:", receipt.contractCreated);
-    const tokenAddress = receipt.contractCreated;
+    // Deploy USDC (MockERC20)
+    console.log("Deploying MockERC20 (USDC)...");
+    const usdc = await MockERC20.deploy("Mock USDC", "USDC");
+    await usdc.waitForDeployment();
+    const usdcAddress = await usdc.getAddress();
+    console.log("USDC deployed to:", usdcAddress);
 
     // Deploy Escrow
+    const Escrow = await hre.ethers.getContractFactory("Escrow");
     console.log("Deploying Escrow...");
-    const escrow = conflux.Contract({
-        abi: escrowArtifact.abi,
-        bytecode: escrowArtifact.bytecode
-    });
+    const escrow = await Escrow.deploy(axcnhAddress);
+    await escrow.waitForDeployment();
+    const escrowAddress = await escrow.getAddress();
+    console.log("Escrow deployed to:", escrowAddress);
 
+    // Deploy CurrencyConverter
+    const CurrencyConverter = await hre.ethers.getContractFactory("CurrencyConverter");
+    console.log("Deploying CurrencyConverter...");
+    const converter = await CurrencyConverter.deploy(axcnhAddress);
+    await converter.waitForDeployment();
+    const converterAddress = await converter.getAddress();
+    console.log("CurrencyConverter deployed to:", converterAddress);
+
+    // Set Rates
+    console.log("Setting exchange rates...");
+    // 1 AXCNH = 4.0 CFX (Simulation)
+    await (await converter.setRate(hre.ethers.ZeroAddress, hre.ethers.parseUnits("4.0", 18))).wait();
+    // 1 AXCNH = 0.14 USDT (~7.2 CNY/USD)
+    await (await converter.setRate(usdtAddress, hre.ethers.parseUnits("0.14", 18))).wait();
+    // 1 AXCNH = 0.14 USDC
+    await (await converter.setRate(usdcAddress, hre.ethers.parseUnits("0.14", 18))).wait();
+    console.log("Rates set successfully.");
+
+    // Funding Converter with liquidity
+    console.log("Funding Converter with liquidity...");
     try {
-        receipt = await escrow.constructor(tokenAddress).sendTransaction({ from: account.address }).executed();
+        const tokens = [
+            { contract: axcnh, name: "AXCNH" },
+            { contract: usdt, name: "USDT" },
+            { contract: usdc, name: "USDC" }
+        ];
+
+        for (const token of tokens) {
+            const transferTx = await token.contract.transfer(converterAddress, hre.ethers.parseUnits("5000", 18));
+            await transferTx.wait();
+            console.log(`Funded ${token.name} successfully.`);
+        }
+
+        // Fund with Native CFX
+        console.log("Funding with CFX...");
+        const fundTx = await converter.fund(hre.ethers.ZeroAddress, 0, { value: hre.ethers.parseUnits("100", 18) });
+        await fundTx.wait();
+        console.log("Funded CFX successfully.");
     } catch (e) {
-        console.error("Escrow Deployment failed:", e);
-        process.exit(1);
+        console.log("Funding failed:", e.message);
     }
-    console.log("Escrow deployed at:", receipt.contractCreated);
-    const escrowAddress = receipt.contractCreated;
+
+    // Deploy SmartAccount logic
+    const SmartAccount = await hre.ethers.getContractFactory("SmartAccount");
+    console.log("Deploying SmartAccount logic...");
+    const smartAccount = await SmartAccount.deploy();
+    await smartAccount.waitForDeployment();
+    const smartAccountAddress = await smartAccount.getAddress();
+    console.log("SmartAccount logic deployed to:", smartAccountAddress);
 
     const addresses = {
-        MockERC20: tokenAddress,
-        Escrow: escrowAddress
+        MockERC20: axcnhAddress,
+        USDT: usdtAddress,
+        USDC: usdcAddress,
+        Escrow: escrowAddress,
+        CurrencyConverter: converterAddress,
+        SmartAccount: smartAccountAddress
     };
-    fs.writeFileSync(path.join(__dirname, "../contract-addresses.json"), JSON.stringify(addresses, null, 2));
-    console.log("Addresses saved to contract-addresses.json");
+
+    const addressesPath = path.join(__dirname, "../contract-addresses.json");
+    fs.writeFileSync(addressesPath, JSON.stringify(addresses, null, 2));
+
+    const frontendAddressesPath = path.resolve(__dirname, "../../frontend/src/contracts/contract-addresses.json");
+    const frontendDir = path.dirname(frontendAddressesPath);
+    if (!fs.existsSync(frontendDir)) {
+        fs.mkdirSync(frontendDir, { recursive: true });
+    }
+    fs.writeFileSync(frontendAddressesPath, JSON.stringify(addresses, null, 2));
+
+    console.log("Addresses saved to:", addressesPath);
+    console.log("Addresses also saved to frontend:", frontendAddressesPath);
 }
 
-main().catch(console.error);
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
