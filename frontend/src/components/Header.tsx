@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ConnectWallet } from './ConnectWallet';
 import logo from '../assets/logo.png';
+import cfxLogo from '../assets/cfx.png';
 
 interface HeaderProps {
     onNavigate: (page: string) => void;
@@ -108,6 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             <div className="logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer', zIndex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <img src={logo} alt="WIS Pay Logo" style={{ height: '32px', width: 'auto' }} />
                 <span>WIS Pay</span>
+                <img src={cfxLogo} alt="CFX Logo" style={{ height: '20px', width: 'auto', marginLeft: '12px' }} />
             </div>
 
             <div className="nav-links" style={{ zIndex: 1 }}>

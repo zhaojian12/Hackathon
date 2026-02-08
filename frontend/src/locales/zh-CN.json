@@ -154,7 +154,62 @@
             "market": "市场",
             "exchange": "兑换",
             "payment": "支付",
-            "orders": "订单"
+            "orders": "订单",
+            "performance": "网络性能",
+            "compliance": "合规流程",
+            "ecosystem": "未来愿景"
+        },
+        "ecosystem": {
+            "title": "WIS Pay 战略生态地图",
+            "strategy_title": "未来扩张战略",
+            "points": {
+                "retention": {
+                    "title": "商家留存策略",
+                    "desc": "基于链上流水信用，为中小企业提供无抵押经营贷，形成强大的生态粘性。"
+                },
+                "cross_chain": {
+                    "title": "跨链版图扩张",
+                    "desc": "借助 Conflux 桥接能力，覆盖“一带一路”多链场景，实现全链支付结算。"
+                },
+                "cfx_loop": {
+                    "title": "CFX 生态闭环",
+                    "desc": "驱动 CFX 真实支付场景应用，吸引开发者与流动性，构建繁荣的 PayFi 生态。"
+                }
+            },
+            "vision_desc": "WIS Pay 不仅仅是一个支付工具，更是连接实体经济与区块链金融价值的桥梁。"
+        },
+        "compliance": {
+            "title": "跨境支付合规流程",
+            "shield_status": "受监管保护",
+            "steps": {
+                "kyc": {
+                    "title": "身份验证 (KYC)",
+                    "desc": "完成企业法人/个人身份识别，上传 ID 证件并进行活体检测。",
+                    "status": "已验证"
+                },
+                "wallet": {
+                    "title": "钱包白名单绑定",
+                    "desc": "将地址与 AnchorX 合规网关绑定，确保资金来源合法且可控。",
+                    "status": "已绑定"
+                },
+                "audit": {
+                    "title": "链上可审计报告",
+                    "desc": "每笔交易自动生成加密存证审计流水，支持监管实时调取。",
+                    "status": "已生成"
+                }
+            },
+            "report_btn": "查看详细合规报告",
+            "audit_title": "实时审计流水 (PoC)",
+            "audit_desc": "区块链确保每一笔跨境交易具备不可篡改的证据链。"
+        },
+        "performance": {
+            "title": "Conflux 实时性能监控",
+            "current_tps": "当前链上 TPS",
+            "peak_tps": "模拟高峰交易量",
+            "load_capacity": "承载能力",
+            "status_active": "运行中",
+            "tps_unit": "笔/秒",
+            "desc": "Conflux 树图区块链采用独创的 GHAST 共识协议，能够在高并发场景下保持极高的吞吐量，确保跨境支付实时清算。"
         },
         "status": {
             "connected": "已连接",
@@ -200,7 +255,7 @@
         "note": "* 基于 Conflux eSpace 实时汇率演算 (仅供 PoC 演示)"
     },
     "auth": {
-        "subtitle": "下一代跨境贸易智能银行",
+        "subtitle": "下一代跨境贸易智能支付",
         "google_login": "使用 Google 账号继续",
         "apple_login": "使用 Apple ID 继续",
         "phone_login_placeholder": "输入手机号",

@@ -146,7 +146,62 @@
             "market": "Market",
             "exchange": "Exchange",
             "payment": "Pay",
-            "orders": "Orders"
+            "orders": "Orders",
+            "performance": "Network Performance",
+            "compliance": "Compliance",
+            "ecosystem": "Mission / Vision"
+        },
+        "ecosystem": {
+            "title": "WIS Pay Strategy Map",
+            "strategy_title": "Future Expansion Strategy",
+            "points": {
+                "retention": {
+                    "title": "Merchant Retention",
+                    "desc": "Unsecured business loans based on on-chain credit history, creating deep ecosystem stickiness."
+                },
+                "cross_chain": {
+                    "title": "Cross-chain Expansion",
+                    "desc": "Leveraging Conflux bridging to cover Belt and Road multichain scenarios for global settlement."
+                },
+                "cfx_loop": {
+                    "title": "CFX Ecosystem Loop",
+                    "desc": "Driving real-world utility for CFX, attracting developers and liquidity to the PayFi ecosystem."
+                }
+            },
+            "vision_desc": "WIS Pay is not just a payment tool, but a bridge connecting the real economy with blockchain financial value."
+        },
+        "compliance": {
+            "title": "Cross-border Compliance Flow",
+            "shield_status": "Regulated",
+            "steps": {
+                "kyc": {
+                    "title": "Identity Verification (KYC)",
+                    "desc": "Complete corporate/individual ID verification and liveness detection.",
+                    "status": "Verified"
+                },
+                "wallet": {
+                    "title": "Whitelisting & Binding",
+                    "desc": "Bind address with AnchorX compliant gateway to ensure legal fund sourcing.",
+                    "status": "Bound"
+                },
+                "audit": {
+                    "title": "On-chain Audit Report",
+                    "desc": "Automatically generated encrypted audit logs for regulatory transparency.",
+                    "status": "Generated"
+                }
+            },
+            "report_btn": "View Detailed Compliance Report",
+            "audit_title": "Real-time Audit Logs (PoC)",
+            "audit_desc": "Blockchain ensures an immutable evidence chain for every cross-border transaction."
+        },
+        "performance": {
+            "title": "Conflux Real-time Performance",
+            "current_tps": "Current TPS",
+            "peak_tps": "Peak Simulated Traffic",
+            "load_capacity": "Load Capacity",
+            "status_active": "Active",
+            "tps_unit": "TX/s",
+            "desc": "Conflux Tree-Graph consensus protocol enables high throughput in high-concurrency scenarios, ensuring real-time settlement for cross-border payments."
         },
         "status": {
             "connected": "Connected",
@@ -192,7 +247,7 @@
         "note": "* Based on Conflux eSpace real-time rates (PoC Demo only)"
     },
     "auth": {
-        "subtitle": "Next-Generation Smart Banking for Cross-Border Trade",
+        "subtitle": "Next-Generation Smart Payment for Cross-Border Trade",
         "google_login": "Continue with Google",
         "apple_login": "Continue with Apple",
         "phone_login_placeholder": "Enter phone number",

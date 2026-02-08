@@ -7,15 +7,18 @@ import { useTranslation } from 'react-i18next';
 import { Header } from './Header';
 import { useApp } from '../AppContext';
 import { ProductMarket } from './ProductMarket';
-import { Wallet, CheckCircle2, AlertCircle, ShoppingBag, ArrowRightLeft, List } from 'lucide-react';
+import { Wallet, CheckCircle2, AlertCircle, ShoppingBag, ArrowRightLeft, List, BarChart3, ShieldCheck, Rocket } from 'lucide-react';
 import { ConfirmDialog } from './ConfirmDialog';
+import { PerformanceMonitor } from './PerformanceMonitor';
+import { ComplianceFlow } from './ComplianceFlow';
+import { EcosystemVision } from './EcosystemVision';
 import ContractAddresses from '../contracts/contract-addresses.json';
 
 interface DashboardProps {
     onNavigate: (page: string) => void;
 }
 
-type TabType = 'market' | 'exchange' | 'payment' | 'orders';
+type TabType = 'market' | 'exchange' | 'payment' | 'orders' | 'performance' | 'compliance' | 'ecosystem';
 
 export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     const { t } = useTranslation();
@@ -103,10 +106,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     };
 
     const tabs = [
-        { id: 'market', label: t('dashboard.tabs.market'), icon: ShoppingBag, roles: ['importer'] },
-        { id: 'exchange', label: t('dashboard.tabs.exchange'), icon: ArrowRightLeft, roles: ['importer', 'exporter'] },
         { id: 'payment', label: t('dashboard.tabs.payment'), icon: Wallet, roles: ['importer'] },
+        { id: 'exchange', label: t('dashboard.tabs.exchange'), icon: ArrowRightLeft, roles: ['importer', 'exporter'] },
         { id: 'orders', label: t('dashboard.tabs.orders'), icon: List, roles: ['importer', 'exporter'] },
+        { id: 'market', label: t('dashboard.tabs.market'), icon: ShoppingBag, roles: ['importer'] },
+        { id: 'performance', label: t('dashboard.tabs.performance'), icon: BarChart3, roles: ['importer', 'exporter'] },
+        { id: 'compliance', label: t('dashboard.tabs.compliance'), icon: ShieldCheck, roles: ['importer', 'exporter'] },
+        { id: 'ecosystem', label: t('dashboard.tabs.ecosystem'), icon: Rocket, roles: ['importer', 'exporter'] },
     ];
 
     return (
@@ -239,6 +245,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     {activeTab === 'orders' && (
                         <div className="animate-fade-in">
                             <TradeList />
+                        </div>
+                    )}
+
+                    {activeTab === 'performance' && (
+                        <div className="animate-fade-in">
+                            <PerformanceMonitor />
+                        </div>
+                    )}
+
+                    {activeTab === 'compliance' && (
+                        <div className="animate-fade-in">
+                            <ComplianceFlow />
+                        </div>
+                    )}
+
+                    {activeTab === 'ecosystem' && (
+                        <div className="animate-fade-in">
+                            <EcosystemVision />
                         </div>
                     )}
                 </div>

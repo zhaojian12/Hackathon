@@ -190,7 +190,7 @@
         "note": "* 基於 Conflux eSpace 實時匯率演算 (僅供 PoC 演示)"
     },
     "auth": {
-        "subtitle": "下一代跨境貿易智能銀行",
+        "subtitle": "下一代跨境貿易智能支付",
         "google_login": "使用 Google 賬號繼續",
         "apple_login": "使用 Apple ID 繼續",
         "phone_login_placeholder": "輸入手機號",
