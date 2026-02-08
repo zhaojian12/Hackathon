@@ -16,7 +16,7 @@ module.exports = {
   networks: {
     hardhat: {},
     espaceTestnet: {
-      url: "https://evmtestnet.confluxrpc.com",
+      url: "https://evmtest.confluxrpc.com",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 71,
     },

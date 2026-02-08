@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../AppContext';
-import { LogIn, LogOut } from 'lucide-react';
+import { LogIn, LogOut, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ethers } from 'ethers';
 
 export const ConnectWallet = () => {
-    const { account, connectWallet, loading, userEmail, logout, tokenContract } = useApp();
+    const { account, connectWallet, loading, userEmail, logout, usdtContract } = useApp();
     const { t } = useTranslation();
-    const [axcnhBalance, setAxcnhBalance] = useState('0.0000');
+    const [usdtBalance, setUsdtBalance] = useState('0.00');
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         const fetchBalance = async () => {
-            if (account && tokenContract) {
+            if (account && usdtContract) {
                 try {
-                    const bal = await tokenContract.balanceOf(account);
-                    setAxcnhBalance(ethers.formatUnits(bal, 18));
+                    const bal = await usdtContract.balanceOf(account);
+                    // USDT typically has 18 decimals in this mock setup, but let's assume it matches the contract.
+                    // If MockERC20 was used for USDT, it likely has 18 decimals. 
+                    // Standard USDT has 6, but check MockERC20Artifact or previous usage.
+                    // Previous context implies 18 decimals for test tokens.
+                    setUsdtBalance(ethers.formatUnits(bal, 18));
                 } catch (e) {
-                    console.error("Failed to fetch AXCNH balance", e);
+                    console.error("Failed to fetch USDT balance", e);
                 }
             }
         };
@@ -24,7 +29,17 @@ export const ConnectWallet = () => {
         // Set up an interval to refresh balance periodically
         const interval = setInterval(fetchBalance, 10000);
         return () => clearInterval(interval);
-    }, [account, tokenContract]);
+    }, [account, usdtContract]);
+
+    const handleCopy = () => {
+        if (account) {
+            navigator.clipboard.writeText(account);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } else {
+            connectWallet();
+        }
+    };
 
     if (userEmail || account) {
         return (
@@ -46,7 +61,7 @@ export const ConnectWallet = () => {
                     fontSize: '0.75rem',
                     fontWeight: 600
                 }}>
-                    {Number(axcnhBalance).toFixed(4)} AXCNH
+                    {Number(usdtBalance).toFixed(2)} USDT
                 </div>
                 <button
                     className="flex-between"
@@ -55,9 +70,11 @@ export const ConnectWallet = () => {
                         padding: '6px 12px',
                         background: 'rgba(255,255,255,0.05)',
                         border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: '10px'
+                        borderRadius: '10px',
+                        cursor: 'pointer'
                     }}
-                    onClick={() => account ? null : connectWallet()}
+                    onClick={handleCopy}
+                    title="Click to copy address"
                 >
                     <div style={{
                         width: '24px',
@@ -73,7 +90,9 @@ export const ConnectWallet = () => {
                         {userEmail ? userEmail[0].toUpperCase() : 'U'}
                     </div>
                     <span style={{ fontSize: '0.85rem' }}>
-                        {account ? `${account.slice(0, 4)}...${account.slice(-4)}` : t('wallet.not_connected')}
+                        {copied
+                            ? <span style={{ color: '#4ade80', display: 'flex', alignItems: 'center', gap: '4px' }}><Check size={14} /> Copied</span>
+                            : (account ? `${account.slice(0, 4)}...${account.slice(-4)}` : t('wallet.not_connected'))}
                     </span>
                 </button>
                 <button

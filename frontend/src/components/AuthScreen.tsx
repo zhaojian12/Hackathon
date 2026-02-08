@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, ShieldCheck, Smartphone, Loader2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Smartphone, Loader2, Wallet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import logo from '../assets/logo.png';
 
@@ -15,6 +15,13 @@ export const AuthScreen = ({ onLogin }: AuthScreenProps) => {
 
     const handleSocialLogin = (type: string) => {
         setLoading(type);
+
+        if (type === 'Wallet') {
+            onLogin('wallet_user'); // Trigger traditional wallet flow
+            setLoading(null);
+            return;
+        }
+
         // 模拟认证过程
         setTimeout(() => {
             const loginId = type === 'Phone' ? `${countryCode}${phone}` : `${type.toLowerCase()}_user@example.com`;
@@ -101,6 +108,28 @@ export const AuthScreen = ({ onLogin }: AuthScreenProps) => {
                     >
                         {loading === 'Apple' ? <Loader2 size={20} className="animate-spin" /> : <img src="https://www.apple.com/favicon.ico" alt="Apple" style={{ width: '18px', height: '18px' }} />}
                         {t('auth.apple_login')}
+                    </button>
+
+                    <button
+                        className="social-btn"
+                        onClick={() => handleSocialLogin('Wallet')}
+                        disabled={!!loading}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '12px',
+                            padding: '12px',
+                            borderRadius: '12px',
+                            background: 'rgba(99, 102, 241, 0.1)',
+                            color: '#a5b4fc',
+                            border: '1px solid rgba(99, 102, 241, 0.2)',
+                            fontWeight: 600,
+                            cursor: 'pointer'
+                        }}
+                    >
+                        {loading === 'Wallet' ? <Loader2 size={20} className="animate-spin" /> : <Wallet size={18} />}
+                        {t('wallet.connect')}
                     </button>
 
                     <div style={{ margin: '1rem 0', display: 'flex', alignItems: 'center', gap: '10px' }}>

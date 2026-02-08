@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { ethers } from 'ethers';
+import { ethers, type JsonRpcProvider } from 'ethers';
+import { getOrCreateLocalAccount, getEthersSignerFromLocalAccount, type LocalAccount } from './utils/accountUtils';
 import EscrowArtifact from './contracts/Escrow.json';
 import MockERC20Artifact from './contracts/MockERC20.json';
 import CurrencyConverterArtifact from './contracts/CurrencyConverter.json';
@@ -8,12 +9,14 @@ import i18n from './i18n';
 
 interface AppContextType {
     provider: ethers.BrowserProvider | null;
-    signer: ethers.JsonRpcSigner | null;
+    signer: ethers.Signer | null;
     account: string;
     balance: string; // CFX balance
     userRole: 'exporter' | 'importer' | null;
     setUserRole: (role: 'exporter' | 'importer') => void;
     connectWallet: () => Promise<void>;
+    localAccount: LocalAccount | null; // 添加本地账户状态
+    useLocalAccount: boolean; // 是否使用本地账户模式
     escrowContract: ethers.Contract | null;
     tokenContract: ethers.Contract | null;
     currencyConverterContract: ethers.Contract | null;
@@ -35,7 +38,7 @@ const ESPACE_TESTNET_CHAIN_ID = '0x47';
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
-    const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
+    const [signer, setSigner] = useState<ethers.Signer | null>(null);
     const [account, setAccount] = useState<string>("");
     const [balance, setBalance] = useState<string>("0");
     const [userRole, setUserRoleState] = useState<'exporter' | 'importer' | null>(null);
@@ -47,8 +50,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [userEmail, setUserEmail] = useState<string | null>(null);
+    const [localAccount, setLocalAccount] = useState<LocalAccount | null>(null);
+    const [useLocalAccount, setUseLocalAccount] = useState<boolean>(false);
 
-    const initContracts = (currentSigner: ethers.JsonRpcSigner) => {
+    const initContracts = (currentSigner: ethers.Signer) => {
         const escrow = new ethers.Contract(ContractAddresses.Escrow, EscrowArtifact.abi, currentSigner);
         const token = new ethers.Contract(ContractAddresses.MockERC20, MockERC20Artifact.abi, currentSigner);
         const converter = new ethers.Contract(ContractAddresses.CurrencyConverter, CurrencyConverterArtifact.abi, currentSigner);
@@ -127,9 +132,21 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setUserEmail(email);
         localStorage.setItem('user_email', email);
 
-        // 自动连接或模拟连接
-        if (window.ethereum) {
-            await connectWallet();
+        // 检测是否是 Google 登录 (模拟)
+        // 如果是 Google 登录，我们启用 "Invisible Wallet" (EIP-7702 PoC)
+        if (email.includes('google') || email.includes('example')) {
+            console.log("Enabling Invisible Wallet for Google Login user...");
+            const account = getOrCreateLocalAccount();
+            setLocalAccount(account);
+            setUseLocalAccount(true);
+
+            // 自动连接我们的本地账户
+            await connectLocalWallet(account);
+        } else {
+            // 传统模式：尝试连接插件钱包
+            if (window.ethereum) {
+                await connectWallet();
+            }
         }
         setIsAuthenticated(true);
         setLoading(false);
@@ -140,8 +157,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setUserEmail(null);
         setAccount("");
         setSigner(null);
+        setLocalAccount(null);
+        setUseLocalAccount(false);
         localStorage.removeItem('user_email');
         localStorage.removeItem('user_role');
+        // 可选：是否清除本地私钥？为了体验连贯性，暂时保留
+        // localStorage.removeItem('conflux_local_pk'); 
         window.location.reload();
     };
 
@@ -151,14 +172,48 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
             if (savedEmail) {
                 setUserEmail(savedEmail);
                 setIsAuthenticated(true);
-                // 自动尝试连接钱包以恢复 account 状态
-                if (window.ethereum) {
+
+                // 恢复连接逻辑
+                if (savedEmail.includes('google') || savedEmail.includes('example')) {
+                    const account = getOrCreateLocalAccount();
+                    setLocalAccount(account);
+                    setUseLocalAccount(true);
+                    await connectLocalWallet(account);
+                } else if (window.ethereum) {
                     await connectWallet();
                 }
             }
         };
         checkConnection();
     }, []);
+
+    const connectLocalWallet = async (lAccount: LocalAccount) => {
+        try {
+            // 使用 eSpace Testnet RPC
+            const rpcUrl = "https://evmtest.confluxrpc.com";
+            const provider = new ethers.JsonRpcProvider(rpcUrl);
+            const signer = await getEthersSignerFromLocalAccount(lAccount, provider);
+
+            setProvider(null); // Local provider logic differs from browser one slightly for read
+            // 这里我们可能需要一个全局的 read provider，但为了简单，我们将 signer.provider 视为 provider
+            // setProvider(provider as any); 
+
+            setSigner(signer);
+            setAccount(lAccount.address);
+
+            const bal = await provider.getBalance(lAccount.address);
+            setBalance(ethers.formatEther(bal));
+
+            // 初始化合约
+            initContracts(signer);
+
+            if (!userRole) setUserRole('importer');
+
+            console.log("Connected to Invisible Wallet:", lAccount.address);
+        } catch (e) {
+            console.error("Failed to connect local wallet:", e);
+        }
+    };
 
     const connectWallet = async () => {
         if (!window.ethereum) {
@@ -232,7 +287,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
             currencyConverterContract,
             usdtContract, usdcContract,
             loading, isAuthenticated, userEmail, afterLogin, logout,
-            refreshBalance, fetchReputation
+            refreshBalance, fetchReputation,
+            localAccount, useLocalAccount
         }}>
             {children}
         </AppContext.Provider>
