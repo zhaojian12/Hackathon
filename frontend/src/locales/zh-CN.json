@@ -1,16 +1,30 @@
 {
     "app": {
-        "title": "Nexus PayFi",
+        "title": "WIS Pay",
         "subtitle": "面向中小企业的一站式跨境结算 PoC"
+    },
+    "faucet": {
+        "mint": "领取测试币",
+        "mint_success": "成功领取 1000 AXCNH！",
+        "mint_failed": "领取失败",
+        "mint_all_test_tokens_title": "一键领取所有测试币 (AXCNH, USDT, USDC)",
+        "no_account_connected": "未连接账户",
+        "minting_in_progress": "正在领取中...",
+        "minting_token": "正在领取 1000 {{token}}...",
+        "starting_mint_for_account": "开始为账户领取: {{account}}",
+        "mint_success_all": "成功领取所有测试币！"
     },
     "wallet": {
         "connect": "连接钱包",
         "connecting": "连接中...",
-        "not_installed": "未检测到 Fluent 钱包",
-        "switch_net": "请切换到 Conflux 测试网"
+        "not_connected": "未连接",
+        "logout": "注销",
+        "not_installed": "尚未安装 Fluent 钱包",
+        "not_installed_alert": "请安装兼容的钱包（MetaMask, OKX 或 Fluent eSpace）！",
+        "switch_net": "请切换至 Conflux Testnet 网络"
     },
     "home": {
-        "hero_title": "Nexus PayFi",
+        "hero_title": "WIS Pay",
         "hero_subtitle_1": "中小企业一站式跨境",
         "hero_subtitle_2": "结算解决方案 PoC",
         "hero_desc": "通过区块链技术，将传统大宗贸易转化为链上可信的信用资产。",
@@ -52,42 +66,145 @@
         }
     },
     "trade": {
-        "item": "交易",
-        "create_new": "创建新交易",
-        "init_desc": "发起一笔安全的担保交易。",
+        "item": "交易项目",
+        "create_new": "发起新交易",
+        "init_desc": "启动安全的托管结算流程。",
         "seller_addr": "卖家地址",
-        "amount": "金额 (cUSD)",
-        "desc": "交易描述",
-        "create_btn": "创建交易",
-        "creating": "创建中...",
-        "list_title": "交易列表",
-        "clear_history": "清空列表",
-        "no_trades": "暂无交易。",
+        "amount": "金额 (AXCNH)",
+        "desc": "商品详情",
+        "create_btn": "创建交易单",
+        "creating": "正在创建...",
+        "list_title": "订单列表",
+        "clear_history": "清除历史",
+        "no_trades": "暂无订单信息",
         "buyer": "买家",
         "seller": "卖家",
         "status": {
-            "waiting": "等待买家存款",
-            "locked": "托管中 (资金已锁定)",
-            "released": "已完成",
-            "cancelled": "已取消"
+            "waiting": "等待买家存入保证金",
+            "locked": "已锁定 (托管中)",
+            "released": "交易已完成",
+            "cancelled": "已取消",
+            "waiting_shipment": "等待出口商发货",
+            "shipping": "货物运输中"
         },
         "actions": {
-            "deposit": "存入资金",
-            "release": "确认收货 (释放资金)",
-            "cancel": "取消交易",
-            "wait_confirm": "等待确认中..."
+            "deposit": "支付货款",
+            "release": "确认收货",
+            "cancel": "取消订单",
+            "wait_confirm": "等待确认...",
+            "pay_deposit": "支付保证金",
+            "confirm_shipment": "确认发货",
+            "receive_and_release": "确认收货并放款",
+            "rate_exporter": "评价出口商",
+            "confirm_and_submit_shipment": "确认并提交发货信息"
+        },
+        "labels": {
+            "my_purchases": "我的购买",
+            "my_sales": "我的销售",
+            "buyer_addr": "买家地址",
+            "seller_addr": "卖家地址",
+            "logistics": "物流信息",
+            "tracking": "物流单号",
+            "method": "配送方式",
+            "remarks": "备注",
+            "rated": "已评价",
+            "rate_prompt": "请对出口商进行评价",
+            "role_buyer": "您的身份：买家",
+            "role_seller": "您的身份：卖家",
+            "tracking_placeholder": "如：SF12345678",
+            "method_placeholder": "如：顺丰速运 / 极兔速递",
+            "remarks_placeholder": "填写额外说明（选填）"
+        },
+        "shipment_modal": {
+            "title": "确认发货",
+            "desc": "请填写物流详情及交易备注"
+        },
+        "modals": {
+            "op_success": "操作成功",
+            "op_success_desc": "区块链交易已确认，系统正在后台进行最终对账。",
+            "tx_failed": "交易失败",
+            "insufficient_balance": "支付失败：您的账户 AXCNH 余额不足。请确保拥有至少 30.0 AXCNH。",
+            "approve_success": "授权成功",
+            "approve_success_desc": "代币额度授权已确认，请再次点击“存入”以完成货款支付。",
+            "confirm_receipt_title": "确认收货并评价",
+            "confirm_receipt_desc": "确认收到货物且无误后，将释放资金给卖家。请为本次交易体验打分。",
+            "ok": "知道了",
+            "confirm_and_release": "确认收货并放款",
+            "sign_and_pay": "签名并支付",
+            "op_failed": "操作失败",
+            "product_name": "商品名称",
+            "amount_label": "交易金额",
+            "recipient": "收款方",
+            "init_trade": "确认发起交易",
+            "security_note": "由 Nexus 安全协议提供底层保障"
         }
     },
-    "faucet": {
-        "mint": "领取测试 cUSD",
-        "mint_success": "已成功领取 1000 cUSD！",
-        "mint_failed": "领取失败"
+    "dashboard": {
+        "welcome_back": "欢迎回来，你的 WIS Pay 账户已就绪。跨境结汇、融资、支付一站式处理。",
+        "tabs": {
+            "market": "市场",
+            "exchange": "兑换",
+            "payment": "支付",
+            "orders": "订单"
+        },
+        "status": {
+            "connected": "已连接",
+            "creating": "正在区块链上为您创建交易单，请稍候...",
+            "creating_trade_for": "采购: {{name}} (来自市场)"
+        },
+        "success": {
+            "trade_created": "交易发起成功！请在订单列表中查看并支付保证金。"
+        },
+        "errors": {
+            "create_failed": "发起交易失败: {{message}}"
+        }
+    },
+    "product_market": {
+        "title": "测试商品",
+        "seller_rating": "卖家星级",
+        "trades_count": "({{count}} 笔交易)",
+        "buy_now": "立即购买",
+        "errors": {
+            "load_failed": "加载商品数据失败"
+        },
+        "products": {
+            "silk": {
+                "name": "优质中国丝绸 (Premium Silk)",
+                "desc": "高品质丝绸，适合高端服装定制。"
+            },
+            "porcelain": {
+                "name": "景德镇陶瓷 (Fine Porcelain)",
+                "desc": "传统工艺打造，艺术与实用兼备。"
+            }
+        }
+    },
+    "currency_exchange": {
+        "title": "多币种兑换",
+        "balance_label": "支付余额:",
+        "estimated_output": "预计获得 (汇率 1:{{rate}})",
+        "confirm_btn": "确认兑换",
+        "success_title": "兑换提交成功",
+        "success_desc": "您已成功发起从 {{from}} 到 {{to}} 的兑换请求。\n交易已上链，余额即刻更新。",
+        "failed_title": "兑换失败",
+        "failed_desc": "未知错误，请检查网络或余额。",
+        "note": "* 基于 Conflux eSpace 实时汇率演算 (仅供 PoC 演示)"
+    },
+    "auth": {
+        "subtitle": "下一代跨境贸易智能银行",
+        "google_login": "使用 Google 账号继续",
+        "apple_login": "使用 Apple ID 继续",
+        "phone_login_placeholder": "输入手机号",
+        "or_phone": "或手机号登录",
+        "phone_login_button": "手机号登录",
+        "protected_account": "受保护的智能账户",
+        "protected_desc": "系统已为你自动关联受托管的端到端加密合约钱包，无需备份助记词。"
     },
     "common": {
         "success": "成功！",
-        "error": "错误：{{message}}",
+        "error": "执行错误: {{message}}",
         "fill_all": "请填写所有字段",
-        "connect_first": "请先连接钱包"
+        "connect_first": "请先连接钱包",
+        "user": "用户"
     },
     "financing": {
         "title": "Conflux 稳定币托管支付网关 (CSTPG)",
@@ -102,12 +219,12 @@
             ]
         },
         "solution": {
-            "title": "PayFi 创新与解决方案",
+            "title": "WIS Pay 创新与解决方案",
             "desc": "CSTPG 旨在通过 Conflux 链上的稳定币和智能合约，为中小企业提供一个低成本、高效率、高信任的跨境结算解决方案。",
             "point1": {
                 "title": "1. 稳定币作为结算媒介",
                 "items": [
-                    "<strong>创新点：</strong>避免了传统外汇交易中的汇率波动风险和高昂的兑换费用。买卖双方可以直接以 Conflux 上的锚定美元稳定币进行结算。",
+                    "<strong>创新点：</strong>避免了传统外汇交易中的汇率波动风险和高昂的兑换费用。买卖双方可以直接以 Conflux 上的锚定AXCNH稳定币进行结算。",
                     "<strong>效率提升：</strong>区块链交易几乎是即时完成的，相较于数日的银行清算，资金流转效率大幅提升。",
                     "<strong>成本降低：</strong>Conflux 网络的交易手续费远低于传统银行电汇费用。"
                 ]

@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { AppProvider } from './AppContext';
+import { AppProvider, useApp } from './AppContext';
 import { Dashboard } from './components/Dashboard';
 import { HomePage } from './components/HomePage';
 import { FinancingPage } from './components/FinancingPage';
+import { AuthScreen } from './components/AuthScreen';
+import { Faucet } from './components/Faucet';
 import './index.css';
 
-function App() {
+function AppContent() {
   const [currentView, setCurrentView] = useState('home');
+  const { isAuthenticated, afterLogin } = useApp();
+
+  if (!isAuthenticated) {
+    return <AuthScreen onLogin={afterLogin} />;
+  }
 
   const renderView = () => {
     switch (currentView) {
@@ -21,8 +28,17 @@ function App() {
   };
 
   return (
-    <AppProvider>
+    <>
       {renderView()}
+      <Faucet />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
     </AppProvider>
   )
 }

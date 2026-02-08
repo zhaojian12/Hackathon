@@ -1,4 +1,8 @@
 {
-  "MockERC20": "cfxtest:acdu4z2cxzy6rsyhu2jdrvc844bnpvtkdyrcz4jud6",
-  "Escrow": "cfxtest:acb4efumsr9am9z7e628umag65xprfkm16r456tgc6"
+  "MockERC20": "0x3ceBd5630de5A65bcACc853b3FBea113cf3e4101",
+  "USDT": "0xf889e4983c2CCB3Fae593d44f32244b5927d2c9e",
+  "USDC": "0xcA72667a14C42AF9B9c5bd0028f59D913a84Fc0d",
+  "Escrow": "0xCfCcE60E72c1c6F6BafA37f9bE89C33923C2167E",
+  "CurrencyConverter": "0xeAaF803D08D225132dBce8e28e34D89c795D221c",
+  "SmartAccount": "0x6a116a9117A0eB6a585B11FA4306373688B12cf5"
 }

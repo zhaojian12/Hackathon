@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Github } from 'lucide-react';
+import { Github } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ConnectWallet } from './ConnectWallet';
+import logo from '../assets/logo.png';
 
 interface HeaderProps {
     onNavigate: (page: string) => void;
@@ -104,9 +105,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                 }}
             />
 
-            <div className="logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer', zIndex: 1 }}>
-                <Box className="logo-icon" />
-                <span>Nexus PayFi</span>
+            <div className="logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer', zIndex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <img src={logo} alt="WIS Pay Logo" style={{ height: '32px', width: 'auto' }} />
+                <span>WIS Pay</span>
             </div>
 
             <div className="nav-links" style={{ zIndex: 1 }}>

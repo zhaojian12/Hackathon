@@ -103,6 +103,27 @@ body {
   }
 }
 
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.account-info-desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .account-info-desktop {
+    display: block;
+  }
+}
+
+.welcome-banner h1 {
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @keyframes pulseGlow {
   0% {
     box-shadow: 0 0 5px rgba(251, 191, 36, 0.1);
@@ -686,4 +707,18 @@ textarea:focus {
   font-size: 1rem;
   color: #94a3b8;
   margin: 0;
+}
+
+/* Utility Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }

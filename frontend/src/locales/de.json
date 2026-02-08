@@ -1,0 +1,240 @@
+{
+    "app": {
+        "title": "WIS Pay",
+        "subtitle": "Ein-Stopp-Grenzüberschreitende Abrechnung PoC für KMU"
+    },
+    "faucet": {
+        "mint": "Test-Token erhalten",
+        "mint_success": "Erfolgreich 1000 AXCNH erhalten!",
+        "mint_failed": "Erhalt fehlgeschlagen",
+        "mint_all_test_tokens_title": "Alle Test-Token auf einmal erhalten (AXCNH, USDT, USDC)",
+        "no_account_connected": "Kein Konto verbunden",
+        "minting_in_progress": "Token werden angefordert...",
+        "minting_token": "Anfordern von 1000 {{token}}...",
+        "starting_mint_for_account": "Anforderung für Konto gestartet: {{account}}",
+        "mint_success_all": "Alle Test-Token erfolgreich erhalten!"
+    },
+    "wallet": {
+        "connect": "Wallet verbinden",
+        "connecting": "Verbinde...",
+        "not_connected": "Nicht verbunden",
+        "logout": "Abmelden",
+        "not_installed": "Fluent Wallet nicht installiert",
+        "not_installed_alert": "Bitte installieren Sie eine kompatible Wallet (MetaMask, OKX oder Fluent eSpace)!",
+        "switch_net": "Bitte zum Conflux Testnet wechseln"
+    },
+    "home": {
+        "hero_title": "WIS Pay",
+        "hero_subtitle_1": "KMU Ein-Stopp-Grenzüberschreitende",
+        "hero_subtitle_2": "Abrechnungslösung PoC",
+        "hero_desc": "Transformieren Sie traditionellen Warenhandel durch Blockchain-Technologie in finanzierbare On-Chain-Kreditwerte.",
+        "get_started": "Jetzt starten",
+        "nav": {
+            "home": "Startseite",
+            "products": "Produkte",
+            "financing": "Szenarien",
+            "pools": "Pools"
+        },
+        "features": {
+            "stablecoin": {
+                "title": "Stablecoin-Abrechnung",
+                "desc": "Vermeiden Sie Wechselkursrisiken durch sofortige, kostengünstige Stablecoin-Transaktionen auf Conflux."
+            },
+            "escrow": {
+                "title": "Smart Escrow",
+                "desc": "Vertrauenslose, automatisierte Mittelfreigabe basierend auf transparenten On-Chain-Triggern."
+            },
+            "finance": {
+                "title": "Inklusive Finanzen",
+                "desc": "Kostengünstige Finanzinstrumente, maßgeschneidert für KMU in der Belt and Road Initiative."
+            }
+        },
+        "advantages": {
+            "title": "Kernvorteile",
+            "fast": {
+                "title": "Schnelle Abrechnung",
+                "desc": "Sekundenschnelle Gutschrift im Vergleich zu Tagen bei Banken"
+            },
+            "secure": {
+                "title": "Sicher & Transparent",
+                "desc": "Smart Contracts gewährleisten Vertrauen"
+            },
+            "low_cost": {
+                "title": "Niedrige Kosten",
+                "desc": "Minimalste Gebühren im Conflux-Netzwerk"
+            }
+        }
+    },
+    "trade": {
+        "item": "Handelsprojekt",
+        "create_new": "Neuen Handel erstellen",
+        "init_desc": "Initiieren Sie eine sichere Escrow-Transaktion.",
+        "seller_addr": "Verkäuferadresse",
+        "amount": "Betrag (AXCNH)",
+        "desc": "Beschreibung",
+        "create_btn": "Handel erstellen",
+        "creating": "Erstelle...",
+        "list_title": "Bestellliste",
+        "clear_history": "Verlauf löschen",
+        "no_trades": "Keine Bestellungen gefunden",
+        "buyer": "Käufer",
+        "seller": "Verkäufer",
+        "status": {
+            "waiting": "Warten auf Käuferanzahlung",
+            "locked": "Gesperrt (Im Treuhandkonto)",
+            "released": "Abgeschlossen",
+            "cancelled": "Abgebrochen",
+            "waiting_shipment": "Warten auf Exporteur-Versand",
+            "shipping": "Waren im Transit"
+        },
+        "actions": {
+            "deposit": "Gelder einzahlen",
+            "release": "Gelder freigeben",
+            "cancel": "Abbrechen",
+            "wait_confirm": "Warte auf Bestätigung...",
+            "pay_deposit": "Anzahlung leisten",
+            "confirm_shipment": "Versand bestätigen",
+            "receive_and_release": "Empfang bestätigen & freigeben",
+            "rate_exporter": "Exporteur bewerten",
+            "confirm_and_submit_shipment": "Versand bestätigen & übermitteln"
+        },
+        "labels": {
+            "my_purchases": "Meine Einkäufe",
+            "my_sales": "Meine Verkäufe",
+            "buyer_addr": "Käuferadresse",
+            "seller_addr": "Verkäuferadresse",
+            "logistics": "Logistik",
+            "tracking": "Tracking-Nr.",
+            "method": "Methode",
+            "remarks": "Anmerkungen",
+            "rated": "Bewertet",
+            "rate_prompt": "Bitte bewerten Sie den Exporteur",
+            "role_buyer": "Ihre Rolle: Käufer",
+            "role_seller": "Ihre Rolle: Verkäufer",
+            "tracking_placeholder": "z.B. SF12345678",
+            "method_placeholder": "z.B. SF Express / DHL",
+            "remarks_placeholder": "Zusätzliche Anweisungen (optional)"
+        },
+        "shipment_modal": {
+            "title": "Versand bestätigen",
+            "desc": "Bitte geben Sie Logistikdetails und Handelsanmerkungen ein"
+        },
+        "modals": {
+            "op_success": "Vorgang erfolgreich",
+            "op_success_desc": "Blockchain-Transaktion bestätigt, Abgleich läuft im Hintergrund.",
+            "tx_failed": "Transaktion fehlgeschlagen",
+            "insufficient_balance": "Zahlung fehlgeschlagen: Unzureichendes AXCNH-Guthaben. Bitte stellen Sie sicher, dass Sie mindestens 30.0 AXCNH haben.",
+            "approve_success": "Genehmigung erfolgreich",
+            "approve_success_desc": "Token-Erlaubnis bestätigt, bitte klicken Sie erneut auf 'Einzahlen', um die Zahlung abzuschließen.",
+            "confirm_receipt_title": "Erhalt bestätigen & bewerten",
+            "confirm_receipt_desc": "Gelder werden nach Bestätigung an den Verkäufer freigegeben. Bitte bewerten Sie Ihre Erfahrung.",
+            "ok": "Verstanden",
+            "confirm_and_release": "Bestätigen & Freigeben",
+            "sign_and_pay": "Signieren & Bezahlen",
+            "op_failed": "Vorgang fehlgeschlagen",
+            "product_name": "Produktname",
+            "amount_label": "Transaktionsbetrag",
+            "recipient": "Empfänger",
+            "init_trade": "Handel einleiten",
+            "security_note": "Unterstützt durch das Nexus-Sicherheitsprotokoll"
+        }
+    },
+    "dashboard": {
+        "welcome_back": "Willkommen zurück, Ihr WIS Pay Konto ist bereit. Grenzüberschreitende Abrechnung, Finanzierung und Zahlung aus einer Hand.",
+        "tabs": {
+            "market": "Markt",
+            "exchange": "Börse",
+            "payment": "Zahlung",
+            "orders": "Bestellungen"
+        },
+        "status": {
+            "connected": "Verbunden",
+            "creating": "Ihr Handel wird auf der Blockchain erstellt, bitte warten...",
+            "creating_trade_for": "Einkauf: {{name}} (vom Markt)"
+        },
+        "success": {
+            "trade_created": "Handel erfolgreich eingeleitet! Bitte prüfen Sie die Bestellliste, um die Anzahlung zu leisten."
+        },
+        "errors": {
+            "create_failed": "Handel konnte nicht eingeleitet werden: {{message}}"
+        }
+    },
+    "product_market": {
+        "title": "Testprodukte",
+        "seller_rating": "Verkäuferbewertung",
+        "trades_count": "({{count}} Handel)",
+        "buy_now": "Jetzt kaufen",
+        "errors": {
+            "load_failed": "Produktdaten konnten nicht geladen werden"
+        },
+        "products": {
+            "silk": {
+                "name": "Premium Seide",
+                "desc": "Hochwertige Seide für luxuriöse Kleidungsstücke."
+            },
+            "porcelain": {
+                "name": "Feines Porzellan",
+                "desc": "Traditionelle Handwerkskunst, künstlerisch und praktisch."
+            }
+        }
+    },
+    "currency_exchange": {
+        "title": "Währungsrechner",
+        "balance_label": "Guthaben:",
+        "estimated_output": "Geschätzt (Kurs 1:{{rate}})",
+        "confirm_btn": "Umtausch bestätigen",
+        "success_title": "Umtausch eingereicht",
+        "success_desc": "Erfolgreicher Umtausch von {{from}} nach {{to}} angefordert. Guthaben wird in Kürze aktualisiert.",
+        "failed_title": "Umtausch fehlgeschlagen",
+        "failed_desc": "Unbekannter Fehler, bitte prüfen Sie Netzwerk oder Guthaben.",
+        "note": "* Basierend auf Conflux eSpace Echtzeitkursen (nur PoC-Demo)"
+    },
+    "auth": {
+        "subtitle": "Nächste Generation Smart Banking für grenzüberschreitenden Handel",
+        "google_login": "Mit Google fortfahren",
+        "apple_login": "Mit Apple fortfahren",
+        "phone_login_placeholder": "Telefonnummer eingeben",
+        "or_phone": "Oder mit Telefonnummer anmelden",
+        "phone_login_button": "Anmelden mit Telefon",
+        "protected_account": "Geschütztes Smart-Konto",
+        "protected_desc": "System hat automatisch eine verschlüsselte Contract-Wallet für Sie verknüpft, kein Seed-Phrase erforderlich."
+    },
+    "common": {
+        "success": "Erfolg!",
+        "error": "Fehler: {{message}}",
+        "fill_all": "Bitte alle Felder ausfüllen",
+        "connect_first": "Bitte zuerst Wallet verbinden",
+        "user": "Benutzer"
+    },
+    "financing": {
+        "title": "Conflux Stablecoin Trusted Payment Gateway (CSTPG)",
+        "subtitle": "Umfassende Zahlungs- und Finanzierungslösungen für den weltweiten Handel",
+        "needs": {
+            "title": "Benötigen Sie stabile, kostengünstige grenzüberschreitende Zahlungen?",
+            "desc": "Kleine und mittlere Unternehmen (KMU) stehen vor großen Herausforderungen im internationalen Handel:",
+            "items": [
+                "<strong>Überweisungsprobleme:</strong> Hohe Bankgebühren und lange Bearbeitungszeiten.",
+                "<strong>Wechselkursrisiken:</strong> Geschäftsgewinne werden durch Währungsschwankungen verschlungen.",
+                "<strong>Finanzierungshürden:</strong> Mangel an Sicherheiten erschwert den Zugang zu Bankkrediten."
+            ]
+        },
+        "solution": {
+            "title": "Unsere Lösung: PayFi & Stablecoin-Integration",
+            "desc": "WIS Pay nutzt das Conflux-Netzwerk, um eine transparente, sichere und effiziente Abrechnungsebene bereitzustellen.",
+            "point1": {
+                "title": "1. Effiziente Stablecoin-Abrechnung",
+                "items": [
+                    "<strong>Fast in Echtzeit:</strong> Schließen Sie grenzüberschreitende Zahlungen in Minuten ab.",
+                    "<strong>Fixkosten:</strong> Extrem niedrige Transaktionsgebühren unabhängig vom Betrag."
+                ]
+            },
+            "point2": {
+                "title": "2. On-Chain-Finanzierungskredit",
+                "items": [
+                    "<strong>Kreditübertragbarkeit:</strong> Ihre On-Chain-Handelshistorie wird zu Ihrem Kreditwert.",
+                    "<strong>Ohne Sicherheiten:</strong> Zugang zu Liquidität basierend auf verifizierten Handelsströmen."
+                ]
+            }
+        }
+    }
+}

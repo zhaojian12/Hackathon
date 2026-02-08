@@ -1,16 +1,30 @@
 {
     "app": {
-        "title": "Nexus PayFi",
+        "title": "WIS Pay",
         "subtitle": "SME One-stop Cross-border Settlement PoC"
+    },
+    "faucet": {
+        "mint": "Mint Test AXCNH",
+        "mint_success": "Successfully minted 1000 AXCNH!",
+        "mint_failed": "Mint failed",
+        "mint_all_test_tokens_title": "Mint all test tokens (AXCNH, USDT, USDC)",
+        "no_account_connected": "No account connected",
+        "minting_in_progress": "Minting in progress...",
+        "minting_token": "Minting 1000 {{token}}...",
+        "starting_mint_for_account": "Starting minting for account: {{account}}",
+        "mint_success_all": "Successfully minted all test tokens!"
     },
     "wallet": {
         "connect": "Connect Fluent",
         "connecting": "Connecting...",
-        "not_installed": "Fluent Wallet Not Installed",
+        "not_connected": "Not Connected",
+        "logout": "Logout",
+        "not_installed": "Fluent Wallet not installed",
+        "not_installed_alert": "Please install a compatible wallet (MetaMask, OKX, or Fluent eSpace)!",
         "switch_net": "Please switch to Conflux Testnet"
     },
     "home": {
-        "hero_title": "Nexus PayFi",
+        "hero_title": "WIS Pay",
         "hero_subtitle_1": "SME One-stop Cross-border",
         "hero_subtitle_2": "Settlement PoC",
         "hero_desc": "Transform traditional commodity trade into on-chain financeable credit assets through blockchain technology.",
@@ -69,55 +83,156 @@
             "waiting": "Waiting for Buyer Deposit",
             "locked": "Locked (In Escrow)",
             "released": "Completed",
-            "cancelled": "Cancelled"
+            "cancelled": "Cancelled",
+            "waiting_shipment": "Waiting for Exporter Shipment",
+            "shipping": "In Transit"
         },
         "actions": {
             "deposit": "Deposit Funds",
             "release": "Release Funds",
             "cancel": "Cancel",
-            "wait_confirm": "Waiting Confirmation..."
+            "wait_confirm": "Waiting Confirmation...",
+            "pay_deposit": "Pay Deposit",
+            "confirm_shipment": "Confirm Shipment",
+            "receive_and_release": "Confirm Receipt & Release",
+            "rate_exporter": "Rate Exporter",
+            "confirm_and_submit_shipment": "Confirm & Submit Shipment"
+        },
+        "labels": {
+            "my_purchases": "My Purchases",
+            "my_sales": "My Sales",
+            "buyer_addr": "Buyer Address",
+            "seller_addr": "Seller Address",
+            "logistics": "Logistics",
+            "tracking": "Tracking #",
+            "method": "Method",
+            "remarks": "Remarks",
+            "rated": "Rated",
+            "rate_prompt": "Please rate the exporter",
+            "role_buyer": "Your Role: Buyer",
+            "role_seller": "Your Role: Seller",
+            "tracking_placeholder": "e.g. SF12345678",
+            "method_placeholder": "e.g. SF Express / DHL",
+            "remarks_placeholder": "Additional instructions (optional)"
+        },
+        "shipment_modal": {
+            "title": "Confirm Shipment",
+            "desc": "Please enter logistics details and trade remarks"
+        },
+        "modals": {
+            "op_success": "Operation Successful",
+            "op_success_desc": "Blockchain transaction confirmed, reconciliation in progress.",
+            "tx_failed": "Transaction Failed",
+            "insufficient_balance": "Payment failed: Insufficient AXCNH balance. Please ensure you have at least 30.0 AXCNH.",
+            "approve_success": "Approval Successful",
+            "approve_success_desc": "Token allowance confirmed, please click 'Deposit' again to complete payment.",
+            "confirm_receipt_title": "Confirm Receipt & Rate",
+            "confirm_receipt_desc": "Funds will be released to the seller after confirmation. Please rate your experience.",
+            "ok": "Got it",
+            "confirm_and_release": "Confirm & Release",
+            "sign_and_pay": "Sign & Pay",
+            "op_failed": "Operation Failed",
+            "product_name": "Product Name",
+            "amount_label": "Transaction Amount",
+            "recipient": "Recipient",
+            "init_trade": "Initiate Transaction",
+            "security_note": "Powered by Nexus security protocol"
         }
     },
-    "faucet": {
-        "mint": "Mint Test cUSD",
-        "mint_success": "Minted 1000 cUSD!",
-        "mint_failed": "Mint failed"
+    "dashboard": {
+        "welcome_back": "Welcome back, your WIS Pay account is ready. One-stop cross-border settlement, financing, and payment.",
+        "tabs": {
+            "market": "Market",
+            "exchange": "Exchange",
+            "payment": "Pay",
+            "orders": "Orders"
+        },
+        "status": {
+            "connected": "Connected",
+            "creating": "Creating your trade on the blockchain, please wait...",
+            "creating_trade_for": "Purchase: {{name}} (from market)"
+        },
+        "success": {
+            "trade_created": "Trade initiated successfully! Please check the order list to pay the deposit."
+        },
+        "errors": {
+            "create_failed": "Failed to initiate trade: {{message}}"
+        }
+    },
+    "product_market": {
+        "title": "Test Products",
+        "seller_rating": "Seller Rating",
+        "trades_count": "({{count}} trades)",
+        "buy_now": "Buy Now",
+        "errors": {
+            "load_failed": "Failed to load product market data"
+        },
+        "products": {
+            "silk": {
+                "name": "Premium Silk",
+                "desc": "High quality silk for luxury garments."
+            },
+            "porcelain": {
+                "name": "Fine Porcelain",
+                "desc": "Traditional craftsmanship, artistic and practical."
+            }
+        }
+    },
+    "currency_exchange": {
+        "title": "Multi-Currency Exchange",
+        "balance_label": "Balance:",
+        "estimated_output": "Estimated (Rate 1:{{rate}})",
+        "confirm_btn": "Confirm Exchange",
+        "success_title": "Exchange Submitted",
+        "success_desc": "Successfully requested exchange from {{from}} to {{to}}. Balance will update shortly.",
+        "failed_title": "Exchange Failed",
+        "failed_desc": "Unknown error, please check network or balance.",
+        "note": "* Based on Conflux eSpace real-time rates (PoC Demo only)"
+    },
+    "auth": {
+        "subtitle": "Next-Generation Smart Banking for Cross-Border Trade",
+        "google_login": "Continue with Google",
+        "apple_login": "Continue with Apple",
+        "phone_login_placeholder": "Enter phone number",
+        "or_phone": "Or login with phone number",
+        "phone_login_button": "Login with Phone",
+        "protected_account": "Protected Smart Account",
+        "protected_desc": "System automatically linked an encrypted contract wallet for you, no seed phrase needed."
     },
     "common": {
         "success": "Success!",
         "error": "Error: {{message}}",
         "fill_all": "Please fill all fields",
-        "connect_first": "Please connect wallet first"
+        "connect_first": "Please connect wallet first",
+        "user": "User"
     },
     "financing": {
         "title": "Conflux Stablecoin Trusted Payment Gateway (CSTPG)",
-        "subtitle": "One-stop Cross-border Settlement PoC for SMEs",
+        "subtitle": "Comprehensive Payment & Financing Solutions for Global Trade",
         "needs": {
-            "title": "Identifying Needs",
-            "desc": "With diverse financial infrastructures along the 'Belt and Road', SMEs often face challenges in cross-border settlements:",
+            "title": "Do you need stable, low-cost cross-border payments?",
+            "desc": "Small and medium-sized enterprises (SMEs) face significant challenges in international trade:",
             "items": [
-                "<strong>High Fees & Exchange Losses:</strong> SWIFT fees are high, and multi-currency exchanges incur volatile costs.",
-                "<strong>Long Settlement Cycles:</strong> Inter-bank clearing takes days, affecting capital turnover.",
-                "<strong>Trust & Compliance Risks:</strong> Risk of non-delivery or non-payment, especially with new partners. LCs are too costly for SMEs."
+                "<strong>Remittance Issues:</strong> High bank fees and long processing times.",
+                "<strong>Exchange Risks:</strong> Business profits swallowed by currency volatility.",
+                "<strong>Financing Barriers:</strong> Lack of collateral makes it hard to get bank loans."
             ]
         },
         "solution": {
-            "title": "PayFi Innovation & Solution",
-            "desc": "CSTPG leverages Conflux stablecoins and smart contracts to provide a low-cost, high-efficiency, trusted settlement solution.",
+            "title": "Our Solution: PayFi & Stablecoin Integration",
+            "desc": "WIS Pay leverages the Conflux Network to provide a transparent, secure, and efficient settlement layer.",
             "point1": {
-                "title": "1. Stablecoin as Medium",
+                "title": "1. Efficient Stablecoin Settlement",
                 "items": [
-                    "<strong>Innovation:</strong> Avoids exchange rate risks and high fees. Direct settlement in USD-pegged stablecoins.",
-                    "<strong>Efficiency:</strong> Near-instant blockchain transactions vs. days for bank clearing.",
-                    "<strong>Cost Reduction:</strong> Minimal transaction fees on Conflux Network."
+                    "<strong>Near-Instant:</strong> Complete cross-border payments in minutes.",
+                    "<strong>Fixed Costs:</strong> Extremely low transaction fees regardless of amount."
                 ]
             },
             "point2": {
-                "title": "2. Smart Contract Driven Escrow",
+                "title": "2. On-chain Financing Credit",
                 "items": [
-                    "<strong>Innovation:</strong> Decentralized escrow mechanism via smart contracts, replacing part of traditional LCs.",
-                    "<strong>Trust:</strong> Funds locked until conditions met. Sellers ship with confidence knowing funds are secured.",
-                    "<strong>Efficiency:</strong> Automatic fund release upon fulfillment (e.g., logistics update), no manual intervention."
+                    "<strong>Credit Porting:</strong> Your on-chain trade history becomes your credit asset.",
+                    "<strong>Collateral-Free:</strong> Access liquidity based on verified trade flows."
                 ]
             }
         }

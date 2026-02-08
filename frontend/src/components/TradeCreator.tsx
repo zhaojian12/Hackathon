@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../AppContext';
 import { Loader2 } from 'lucide-react';
-import { Drip } from 'js-conflux-sdk';
+import { ethers } from 'ethers';
 import { useTranslation } from 'react-i18next';
 
-export const TradeCreator = () => {
+export const TradeCreator = ({ prefill, onClearPrefill }: { prefill?: any, onClearPrefill?: () => void }) => {
     const { escrowContract, account } = useApp();
     const { t } = useTranslation();
     const [seller, setSeller] = useState('');
@@ -12,31 +12,32 @@ export const TradeCreator = () => {
     const [desc, setDesc] = useState('');
     const [creating, setCreating] = useState(false);
 
+    useEffect(() => {
+        if (prefill) {
+            setSeller(prefill.seller);
+            setAmount(prefill.amount);
+            setDesc(prefill.desc);
+        }
+    }, [prefill]);
+
     const handleCreate = async () => {
         if (!escrowContract || !account) return alert(t('common.connect_first'));
         if (!seller || !amount || !desc) return alert(t('common.fill_all'));
 
         try {
             setCreating(true);
-            const amountDrip = Drip.fromCFX(amount);
-            const txData = escrowContract.createTrade(seller, amountDrip.toString(), desc).data;
+            const tx = await escrowContract.createTrade(
+                seller,
+                ethers.parseUnits(amount, 18),
+                desc
+            );
+            await tx.wait();
 
-            const txParams = {
-                from: account,
-                to: escrowContract.address,
-                data: txData,
-                value: '0x0'
-            };
-
-            // @ts-ignore
-            await window.conflux.request({
-                method: 'cfx_sendTransaction',
-                params: [txParams]
-            });
             alert(t('common.success'));
             setSeller('');
             setAmount('');
             setDesc('');
+            if (onClearPrefill) onClearPrefill();
         } catch (e) {
             console.error(e);
             alert(t('common.error', { message: (e as any).message }));
@@ -52,7 +53,7 @@ export const TradeCreator = () => {
             <div>
                 <label>{t('trade.seller_addr')}</label>
                 <input
-                    placeholder="cfxtest:..."
+                    placeholder="0x..."
                     value={seller}
                     onChange={e => setSeller(e.target.value)}
                 />
