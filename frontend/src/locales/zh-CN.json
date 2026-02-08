@@ -123,7 +123,16 @@
             "op_success": "操作成功",
             "op_success_desc": "区块链交易已确认，系统正在后台进行最终对账。",
             "tx_failed": "交易失败",
-            "insufficient_balance": "支付失败：您的账户 AXCNH 余额不足。请确保拥有至少 30.0 AXCNH。",
+            "insufficient_balance": "支付失败：您的账户 AXCNH 余额不足。",
+            "insufficient_usdt": "USDT 余额不足。您需要大约 {{needed}} USDT 来兑换此订单所需的 AXCNH。",
+            "payment_step_1": "步骤 1/4: USDT 授权",
+            "payment_step_1_desc": "系统正在请求授权您的 {{amount}} USDT 以便进行自动汇率转换。",
+            "payment_step_2": "步骤 2/4: 自动结汇",
+            "payment_step_2_desc": "正在将 {{usdt}} USDT 兑换为订单所需的 {{axcnh}} AXCNH。",
+            "payment_step_3": "步骤 3/4: 结算授权",
+            "payment_step_3_desc": "换算完成。现在正在请求授权使用得到的 {{amount}} AXCNH 进行货款支付。",
+            "payment_step_4": "步骤 4/4: 完成支付",
+            "payment_step_4_desc": "最后一步：正在将货款存入安全托管合约。请在钱包中确认。",
             "approve_success": "授权成功",
             "approve_success_desc": "代币额度授权已确认，请再次点击“存入”以完成货款支付。",
             "confirm_receipt_title": "确认收货并评价",
@@ -150,7 +159,8 @@
         "status": {
             "connected": "已连接",
             "creating": "正在区块链上为您创建交易单，请稍候...",
-            "creating_trade_for": "采购: {{name}} (来自市场)"
+            "creating_trade_for": "采购: {{name}} (来自市场)",
+            "creating_trade_for_usdt": "采购: {{name}} (支付 {{price}} USDT)"
         },
         "success": {
             "trade_created": "交易发起成功！请在订单列表中查看并支付保证金。"

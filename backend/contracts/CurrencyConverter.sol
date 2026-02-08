@@ -4,13 +4,16 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+// Abstract interface for Escrow
+interface IEscrow {
+    function depositFundsFor(uint256 _tradeId, address _buyer) external;
+}
+
 contract CurrencyConverter is Ownable {
     IERC20 public axcnh;
     
     // Rate mapping: How many units of 'Token' for 1 unit of AXCNH?
     // Using 18 decimals for rates to avoid precision loss.
-    // Example: If 1 AXCNH = 0.5 BRST, rate is 0.5 * 1e18
-    // Example: If 1 AXCNH = 0.14 USDT, rate is 0.14 * 1e18
     mapping(address => uint256) public rates;
 
     event Swapped(address indexed user, address indexed fromToken, address indexed toToken, uint256 amountIn, uint256 amountOut);
@@ -58,6 +61,28 @@ contract CurrencyConverter is Ownable {
         require(axcnh.transfer(msg.sender, amountOut), "Transfer AXCNH failed");
         
         emit Swapped(msg.sender, _token, address(axcnh), amountIn, amountOut);
+    }
+
+    /**
+     * @dev Swap token to AXCNH and deposit into Escrow in one transaction.
+     */
+    function payWithToken(address _token, uint256 _amountIn, address _escrow, uint256 _tradeId) external {
+        uint256 rate = rates[_token];
+        require(rate > 0, "Token not supported");
+
+        // 1. Take source token from user
+        require(IERC20(_token).transferFrom(msg.sender, address(this), _amountIn), "Transfer In failed");
+
+        // 2. Calculate AXCNH needed
+        uint256 amountOut = (_amountIn * 1e18) / rate;
+
+        // 3. Approve Escrow to take AXCNH from this contract
+        axcnh.approve(_escrow, amountOut);
+
+        // 4. Call Escrow to deposit on behalf of msg.sender
+        IEscrow(_escrow).depositFundsFor(_tradeId, msg.sender);
+        
+        emit Swapped(msg.sender, _token, address(axcnh), _amountIn, amountOut);
     }
 
     // Allow contract to receive CFX

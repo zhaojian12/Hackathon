@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ethers } from 'ethers';
 import { InfoModal } from './InfoModal';
 import { ShipModal } from './ShipModal';
+import ContractAddresses from '../contracts/contract-addresses.json';
 
 // Enum matches solidity
 const TradeStatus = { Created: 0, Locked: 1, Shipped: 2, Received: 3, Cancelled: 4 } as const;
@@ -25,7 +26,13 @@ interface Trade {
 
 export const TradeList = () => {
     const { t } = useTranslation();
-    const { escrowContract, tokenContract, account, userRole } = useApp();
+    const { escrowContract, tokenContract, account, userRole, currencyConverterContract, usdtContract, usdcContract } = useApp();
+
+    const tokenMap: Record<string, any> = {
+        AXCNH: tokenContract,
+        USDT: usdtContract,
+        USDC: usdcContract
+    };
     const [trades, setTrades] = useState<Trade[]>([]);
     const [subTab, setSubTab] = useState<'purchases' | 'sales'>(userRole === 'exporter' ? 'sales' : 'purchases');
     const [loading, setLoading] = useState(false);
@@ -223,30 +230,74 @@ export const TradeList = () => {
     };
 
     const handleDeposit = async (trade: Trade) => {
-        if (!tokenContract || !escrowContract || !account) return;
+        if (!tokenContract || !escrowContract || !account || !currencyConverterContract) return;
         setActionLoading(trade.id);
         try {
             const escrowAddress = await escrowContract.getAddress();
+            const converterAddress = await currencyConverterContract.getAddress();
+            const usdtAddress = (ContractAddresses as any).USDT;
+            const usdtContractRef = (tokenMap as any).USDT;
 
-            const allowance = await tokenContract.allowance(account, escrowAddress);
+            // Prioritize USDT payment flow as requested by user
+            console.log("[TradeList] Initiating USDT payment flow...");
 
-            if (allowance < trade.amount) {
-                const approveTx = await tokenContract.approve(escrowAddress, trade.amount);
-                await approveTx.wait();
+            // First, calculate how much USDT is needed
+            const rate = await currencyConverterContract.rates(usdtAddress);
+            if (rate === 0n) throw new Error("USDT rate not set in converter");
+
+            // amountOut = (amountIn * 1e18) / rate => amountIn = (amountOut * rate) / 1e18
+            const usdtNeeded = (trade.amount * rate) / ethers.parseUnits("1", 18);
+            console.log(`[TradeList] USDT needed: ${ethers.formatUnits(usdtNeeded, 18)}, Current rate: ${ethers.formatUnits(rate, 18)}`);
+
+            // Check USDT balance
+            const usdtBalance = await usdtContractRef.balanceOf(account);
+            console.log(`[TradeList] USDT balance: ${ethers.formatUnits(usdtBalance, 18)}`);
+
+            if (usdtBalance >= usdtNeeded) {
+                // Step 1: Approve USDT for converter
+                const usdtAllowance = await usdtContractRef.allowance(account, converterAddress);
+                if (usdtAllowance < usdtNeeded) {
+                    setModalState({
+                        isOpen: true,
+                        title: t('trade.modals.payment_step_1'),
+                        message: t('trade.modals.payment_step_1_desc', { amount: ethers.formatUnits(usdtNeeded, 12 + 6) }), // Use a cleaner format if possible, but usdt is 18 decimals in mock
+                        iconType: 'info'
+                    });
+                    const approveTx = await usdtContractRef.approve(converterAddress, usdtNeeded);
+                    await approveTx.wait();
+                }
+
+                // Step 2: Pay with Token
                 setModalState({
                     isOpen: true,
-                    title: t('trade.modals.approve_success'),
-                    message: t('trade.modals.approve_success_desc'),
-                    iconType: 'success'
+                    title: t('trade.modals.payment_step_2'),
+                    message: t('trade.modals.payment_step_4_desc'),
+                    iconType: 'info'
                 });
 
-                // 乐观更新：本地立即标记该交易已授权
-                setTrades(prev => prev.map(t => t.id === trade.id ? { ...t, hasAllowance: true } : t));
-                return;
+                const tx = await currencyConverterContract.payWithToken(
+                    usdtAddress,
+                    usdtNeeded,
+                    escrowAddress,
+                    trade.id
+                );
+                await tx.wait();
+            } else {
+                // If user doesn't have USDT but has AXCNH, fall back to AXCNH (to avoid blocking)
+                const axcnhBalance = await tokenContract.balanceOf(account);
+                if (axcnhBalance >= trade.amount) {
+                    console.log("[TradeList] Insufficient USDT but has AXCNH, falling back to direct AXCNH payment");
+                    const allowance = await tokenContract.allowance(account, escrowAddress);
+                    if (allowance < trade.amount) {
+                        const approveTx = await tokenContract.approve(escrowAddress, trade.amount);
+                        await approveTx.wait();
+                    }
+                    await handleTransaction(trade.id, 'depositFunds', trade.id);
+                } else {
+                    throw new Error(t('trade.modals.insufficient_usdt', { needed: ethers.formatUnits(usdtNeeded, 18) }));
+                }
             }
 
-            await handleTransaction(trade.id, 'depositFunds', trade.id);
-            fetchTrades();
             fetchTrades();
         } catch (e: any) {
             console.error(e);
@@ -405,6 +456,43 @@ export const TradeList = () => {
         }
     });
 
+    const [rates, setRates] = useState<Record<string, bigint>>({});
+
+    const fetchRates = async () => {
+        if (!currencyConverterContract) return;
+        try {
+            const usdtAddress = (ContractAddresses as any).USDT;
+            const usdcAddress = (ContractAddresses as any).USDC;
+            const usdtRate = await currencyConverterContract.rates(usdtAddress);
+            const usdcRate = await currencyConverterContract.rates(usdcAddress);
+            setRates({ USDT: usdtRate, USDC: usdcRate });
+        } catch (e) {
+            console.error("Fetch rates failed:", e);
+        }
+    };
+
+    useEffect(() => {
+        fetchRates();
+    }, [currencyConverterContract]);
+
+    const renderTradeAmount = (trade: Trade) => {
+        const isBuyer = account && trade.buyer.toLowerCase() === account.toLowerCase();
+
+        if (isBuyer && rates.USDT && rates.USDT > 0n) {
+            try {
+                // axcnh (trade.amount) -> usdt = (axcnh * rate) / 1e18
+                const usdtAmount = (trade.amount * rates.USDT) / ethers.parseUnits("1", 18);
+                // Round to avoid 3.9999999999999999 USDT issue
+                const formatted = parseFloat(ethers.formatUnits(usdtAmount, 18)).toFixed(4);
+                return <span style={{ color: '#8b5cf6', fontWeight: 600 }}>{formatted} USDT</span>;
+            } catch (e) {
+                console.error("[TradeList] Conversion failed in render", e);
+            }
+        }
+
+        return <span style={{ color: '#8b5cf6', fontWeight: 600 }}>{ethers.formatUnits(trade.amount, 18)} AXCNH</span>;
+    };
+
     return (
         <div className="card">
             <div className="flex-between" style={{ marginBottom: '1.5rem' }}>
@@ -484,7 +572,7 @@ export const TradeList = () => {
                         }}>
                             <div className="flex-between">
                                 <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{t('trade.item')} #{trade.id}</span>
-                                <span style={{ color: '#8b5cf6', fontWeight: 600 }}>{ethers.formatUnits(trade.amount, 18)} AXCNH</span>
+                                {renderTradeAmount(trade)}
                             </div>
 
                             <p style={{ margin: 0, color: '#cbd5e1', fontSize: '0.9rem' }}>

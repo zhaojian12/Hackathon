@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { ArrowRight, ShieldCheck, Globe, Smartphone, Loader2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Smartphone, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import logo from '../assets/logo.png';
 
 interface AuthScreenProps {
     onLogin: (addr: string) => void;
@@ -10,12 +11,14 @@ export const AuthScreen = ({ onLogin }: AuthScreenProps) => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState<string | null>(null);
     const [phone, setPhone] = useState('');
+    const [countryCode, setCountryCode] = useState('+86');
 
     const handleSocialLogin = (type: string) => {
         setLoading(type);
         // 模拟认证过程
         setTimeout(() => {
-            onLogin(`${type.toLowerCase()}_user@example.com`);
+            const loginId = type === 'Phone' ? `${countryCode}${phone}` : `${type.toLowerCase()}_user@example.com`;
+            onLogin(loginId);
             setLoading(null);
         }, 1500);
     };
@@ -38,19 +41,18 @@ export const AuthScreen = ({ onLogin }: AuthScreenProps) => {
                 textAlign: 'center'
             }}>
                 <div style={{ marginBottom: '2rem' }}>
-                    <div style={{
-                        width: '64px',
-                        height: '64px',
-                        background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-                        borderRadius: '16px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 1.5rem auto',
-                        boxShadow: '0 0 30px rgba(99, 102, 241, 0.4)'
-                    }}>
-                        <Globe size={32} />
-                    </div>
+                    <img
+                        src={logo}
+                        alt="WIS Pay Logo"
+                        style={{
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '50%',
+                            margin: '0 auto 1.5rem auto',
+                            display: 'block',
+                            boxShadow: '0 0 30px rgba(99, 102, 241, 0.3)'
+                        }}
+                    />
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0', color: '#fff' }}>{t('app.title')}</h2>
                     <p style={{ margin: 0, fontSize: '0.85rem', color: '#94a3b8', fontWeight: 500 }}>{t('auth.subtitle')}</p>
                 </div>
@@ -107,24 +109,47 @@ export const AuthScreen = ({ onLogin }: AuthScreenProps) => {
                         <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
                     </div>
 
-                    <div style={{ position: 'relative', marginBottom: '0' }}>
-                        <Smartphone size={18} style={{ position: 'absolute', left: '12px', top: '13px', color: '#94a3b8' }} />
-                        <input
-                            type="tel"
-                            placeholder={t('auth.phone_login_placeholder')}
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                    <div style={{ display: 'flex', gap: '8px', marginBottom: '0' }}>
+                        <select
+                            value={countryCode}
+                            onChange={(e) => setCountryCode(e.target.value)}
                             style={{
-                                width: '100%',
-                                padding: '12px 12px 12px 40px',
+                                width: '100px',
+                                padding: '12px',
                                 background: 'rgba(255,255,255,0.05)',
                                 border: '1px solid rgba(255,255,255,0.1)',
                                 borderRadius: '12px',
                                 color: '#fff',
                                 outline: 'none',
-                                boxSizing: 'border-box'
+                                cursor: 'pointer',
+                                fontSize: '0.9rem'
                             }}
-                        />
+                        >
+                            <option value="+86" style={{ background: '#1e293b' }}>🇨🇳 +86</option>
+                            <option value="+49" style={{ background: '#1e293b' }}>🇩🇪 +49</option>
+                            <option value="+852" style={{ background: '#1e293b' }}>🇭🇰 +852</option>
+                            <option value="+1" style={{ background: '#1e293b' }}>🇺🇸 +1</option>
+                            <option value="+65" style={{ background: '#1e293b' }}>🇸🇬 +65</option>
+                        </select>
+                        <div style={{ position: 'relative', flex: 1 }}>
+                            <Smartphone size={18} style={{ position: 'absolute', left: '12px', top: '13px', color: '#94a3b8' }} />
+                            <input
+                                type="tel"
+                                placeholder={t('auth.phone_login_placeholder')}
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 12px 12px 40px',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '12px',
+                                    color: '#fff',
+                                    outline: 'none',
+                                    boxSizing: 'border-box'
+                                }}
+                            />
+                        </div>
                     </div>
                     <button
                         onClick={() => handleSocialLogin('Phone')}

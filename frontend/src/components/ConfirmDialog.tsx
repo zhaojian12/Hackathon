@@ -95,7 +95,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                         <div>
                             <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t('trade.modals.amount_label')}</div>
-                            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc' }}>{price} <span style={{ fontSize: '0.9rem', color: '#6366f1' }}>AXCNH</span></div>
+                            <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc' }}>{price} <span style={{ fontSize: '0.9rem', color: '#6366f1' }}>USDT</span></div>
                         </div>
                         <div style={{ textAlign: 'right' }}>
                             <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{t('trade.modals.recipient')}</div>

@@ -114,6 +114,17 @@ async function main() {
 
     console.log("Addresses saved to:", addressesPath);
     console.log("Addresses also saved to frontend:", frontendAddressesPath);
+
+    // Copy ABIs to frontend
+    const contracts = ["Escrow", "CurrencyConverter", "MockERC20"];
+    for (const name of contracts) {
+        const artifactPath = path.resolve(__dirname, `../artifacts/contracts/${name}.sol/${name}.json`);
+        const frontendArtifactPath = path.resolve(__dirname, `../../frontend/src/contracts/${name}.json`);
+        if (fs.existsSync(artifactPath)) {
+            fs.copyFileSync(artifactPath, frontendArtifactPath);
+            console.log(`Copied ${name} ABI to frontend.`);
+        }
+    }
 }
 
 main().catch((error) => {

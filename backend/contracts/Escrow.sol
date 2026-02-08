@@ -75,6 +75,22 @@ contract Escrow {
         emit FundsDeposited(_tradeId, msg.sender);
     }
 
+    /**
+     * @dev Allows depositing funds on behalf of a buyer. 
+     * The AXCNH funds are taken from the caller (msg.sender).
+     */
+    function depositFundsFor(uint256 _tradeId, address _buyer) external {
+        Trade storage trade = trades[_tradeId];
+        require(trade.buyer == _buyer, "Not the trade buyer");
+        require(trade.status == TradeStatus.Created, "Trade not in Created state");
+
+        // Transfer funds from caller (the Converter) to this contract
+        require(stablecoin.transferFrom(msg.sender, address(this), trade.amount), "Transfer failed");
+
+        trade.status = TradeStatus.Locked;
+        emit FundsDeposited(_tradeId, _buyer);
+    }
+
     function confirmShipment(uint256 _tradeId, string calldata _trackingNumber, string calldata _shippingMethod, string calldata _remarks) external {
         Trade storage trade = trades[_tradeId];
         require(msg.sender == trade.seller, "Only seller can confirm shipment");

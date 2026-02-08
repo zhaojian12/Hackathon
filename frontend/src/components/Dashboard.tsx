@@ -9,6 +9,7 @@ import { useApp } from '../AppContext';
 import { ProductMarket } from './ProductMarket';
 import { Wallet, CheckCircle2, AlertCircle, ShoppingBag, ArrowRightLeft, List } from 'lucide-react';
 import { ConfirmDialog } from './ConfirmDialog';
+import ContractAddresses from '../contracts/contract-addresses.json';
 
 interface DashboardProps {
     onNavigate: (page: string) => void;
@@ -18,7 +19,7 @@ type TabType = 'market' | 'exchange' | 'payment' | 'orders';
 
 export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     const { t } = useTranslation();
-    const { userRole, setUserRole, escrowContract, account } = useApp();
+    const { userRole, setUserRole, escrowContract, account, currencyConverterContract } = useApp();
     const [prefillOrder, setPrefillOrder] = useState<any>(null);
     const [purchaseLoading, setPurchaseLoading] = useState(false);
     const [purchaseSuccess, setPurchaseSuccess] = useState(false);
@@ -49,10 +50,37 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
 
         try {
             setPurchaseLoading(true);
+
+            let axcnhAmount = ethers.parseUnits(selectedProduct.price, 18);
+
+            // Fetch current rate to convert USDT to AXCNH
+            // If the product price is in USDT, we should convert it to AXCNH for the escrow contract
+            if (currencyConverterContract) {
+                try {
+                    const usdtAddress = (ContractAddresses as any).USDT;
+                    const rate = await currencyConverterContract.rates(usdtAddress);
+                    console.log(`[Dashboard] Fetched USDT rate for ${usdtAddress}: ${rate.toString()}`);
+                    if (rate > 0n) {
+                        // rate is how many USDT for 1 AXCNH (18 decimals)
+                        // axcnhAmount = usdtAmount / rate * 1e18
+                        const usdtAmount = ethers.parseUnits(selectedProduct.price, 18);
+                        axcnhAmount = (usdtAmount * ethers.parseUnits("1", 18)) / rate;
+                        console.log(`[Dashboard] Converting ${selectedProduct.price} USDT to ${ethers.formatUnits(axcnhAmount, 18)} AXCNH (Rate: ${ethers.formatUnits(rate, 18)})`);
+                    } else {
+                        console.warn("[Dashboard] USDT rate is 0 on-chain, using 1:1 fallback");
+                    }
+                } catch (rateError) {
+                    console.warn("[Dashboard] Failed to fetch rate, using fallback 1:7", rateError);
+                    // Fallback: 1 USDT = 7 AXCNH -> 1 AXCNH = 0.14 USDT
+                    const fallbackAxcnh = parseFloat(selectedProduct.price) * 7.14;
+                    axcnhAmount = ethers.parseUnits(fallbackAxcnh.toFixed(2), 18);
+                }
+            }
+
             const tx = await escrowContract.createTrade(
                 selectedProduct.seller,
-                ethers.parseUnits(selectedProduct.price, 18),
-                t('dashboard.status.creating_trade_for', { name: selectedProduct.name })
+                axcnhAmount,
+                t('dashboard.status.creating_trade_for_usdt', { name: selectedProduct.name, price: selectedProduct.price })
             );
             await tx.wait();
 

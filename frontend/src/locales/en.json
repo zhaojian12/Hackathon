@@ -124,6 +124,7 @@
             "op_success_desc": "Blockchain transaction confirmed, reconciliation in progress.",
             "tx_failed": "Transaction Failed",
             "insufficient_balance": "Payment failed: Insufficient AXCNH balance. Please ensure you have at least 30.0 AXCNH.",
+            "insufficient_usdt": "Insufficient USDT balance. You need approximately {{needed}} USDT to swap for the required AXCNH.",
             "approve_success": "Approval Successful",
             "approve_success_desc": "Token allowance confirmed, please click 'Deposit' again to complete payment.",
             "confirm_receipt_title": "Confirm Receipt & Rate",
@@ -150,7 +151,8 @@
         "status": {
             "connected": "Connected",
             "creating": "Creating your trade on the blockchain, please wait...",
-            "creating_trade_for": "Purchase: {{name}} (from market)"
+            "creating_trade_for": "Purchase: {{name}} (from market)",
+            "creating_trade_for_usdt": "Purchase: {{name}} (Pay {{price}} USDT)"
         },
         "success": {
             "trade_created": "Trade initiated successfully! Please check the order list to pay the deposit."

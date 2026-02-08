@@ -16,7 +16,7 @@ const MOCK_PRODUCTS: Product[] = [
     {
         id: 'silk',
         name: 'Premium Silk',
-        price: '100',
+        price: '14',
         description: 'High quality silk',
         seller: '0x917F5c844B8307aEeA3ecf755B6454889d1e45DF',
         image: 'https://lh3.googleusercontent.com/proxy/M-lk1v9Gx6fvLMm_ZfNOToE3LUi6bj_0WHZvVD2M2jLuFJMvA-Bh7AN3RdVP6TdldH2Gt0VLTmUDCrO_08FiRfrv4QYGSwpnbmlJ3l_1L5TlreNvp023C5WZuMYTs3L456TkT4zDzA63JoIjnt69fHyqrA0kUQVdCpw5dp6L2L2HtP2pR92ByYAodrfhig'
@@ -24,7 +24,7 @@ const MOCK_PRODUCTS: Product[] = [
     {
         id: 'porcelain',
         name: 'Fine Porcelain',
-        price: '30',
+        price: '4',
         description: 'Traditional craftsmanship',
         seller: '0x917F5c844B8307aEeA3ecf755B6454889d1e45DF',
         image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=300&auto=format&fit=crop'
@@ -69,7 +69,7 @@ export const ProductMarket = ({ onBuy }: { onBuy: (product: Product) => void }) 
                             <div style={{ padding: '1.2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                                 <div style={{ marginBottom: '1rem' }}>
                                     <h3 style={{ margin: '0 0 4px 0', fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.3 }}>{t(`product_market.products.${product.id}.name`)}</h3>
-                                    <div style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '1.1rem' }}>{product.price} AXCNH</div>
+                                    <div style={{ color: '#8b5cf6', fontWeight: 800, fontSize: '1.1rem' }}>{product.price} USDT</div>
                                 </div>
                                 <p style={{ fontSize: '0.85rem', color: '#94a3b8', margin: '0 0 1rem 0', lineHeight: 1.5 }}>{t(`product_market.products.${product.id}.desc`)}</p>
 
