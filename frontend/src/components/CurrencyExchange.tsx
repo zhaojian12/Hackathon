@@ -137,8 +137,8 @@ export const CurrencyExchange: React.FC = () => {
 
             await tx.wait();
             setModalInfo({
-                title: t('currency_exchange.swap_success_title'),
-                message: t('currency_exchange.swap_success_message', { from: fromToken, to: toToken }),
+                title: t('currency_exchange.success_title'),
+                message: t('currency_exchange.success_desc', { from: fromToken, to: toToken }),
                 type: 'success'
             });
             setModalOpen(true);
@@ -147,8 +147,8 @@ export const CurrencyExchange: React.FC = () => {
         } catch (e: any) {
             console.error("Swap Error Debug:", e);
             setModalInfo({
-                title: t('currency_exchange.swap_failed_title'),
-                message: e.reason || e.message || t('currency_exchange.unknown_error'),
+                title: t('currency_exchange.failed_title'),
+                message: e.reason || e.message || t('currency_exchange.failed_desc'),
                 type: 'info'
             });
             setModalOpen(true);
