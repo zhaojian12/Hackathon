@@ -134,6 +134,7 @@
             "confirm_receipt_desc": "Funds will be released to the seller after confirmation. Please rate your experience.",
             "ok": "Got it",
             "confirm_and_release": "Confirm & Release",
+            "cancel": "Cancel",
             "sign_and_pay": "Sign & Pay",
             "op_failed": "Operation Failed",
             "product_name": "Product Name",
@@ -267,32 +268,34 @@
         "user": "User"
     },
     "financing": {
-        "title": "Conflux Stablecoin Trusted Payment Gateway (CSTPG)",
-        "subtitle": "Comprehensive Payment & Financing Solutions for Global Trade",
+        "title": "WIS Pay Core Scenarios",
+        "subtitle": "Full-Stack Decentralized Financial Services for Belt & Road Trade",
         "needs": {
-            "title": "Do you need stable, low-cost cross-border payments?",
-            "desc": "Small and medium-sized enterprises (SMEs) face significant challenges in international trade:",
+            "title": "Traditional Trade Pain Points",
+            "desc": "In the current global trade environment, SMEs face a triple dilemma of difficult settlement, expensive financing, and weak trust:",
             "items": [
-                "<strong>Remittance Issues:</strong> High bank fees and long processing times.",
-                "<strong>Exchange Risks:</strong> Business profits swallowed by currency volatility.",
-                "<strong>Financing Barriers:</strong> Lack of collateral makes it hard to get bank loans."
+                "<strong>High Costs & Slow Speed:</strong> Cross-border wire transfers (SWIFT) often take 3-5 days, involving exchange rate spreads and high intermediary fees.",
+                "<strong>Lack of Trust:</strong> Mutual trust is weak. Traditional Letters of Credit (LC) have high thresholds and complex processes, unsuitable for small, high-frequency orders.",
+                "<strong>Compliance & Risk:</strong> Hard to meet increasingly strict AML requirements, and exchange rate fluctuations directly erode trade profits."
             ]
         },
         "solution": {
-            "title": "Our Solution: PayFi & Stablecoin Integration",
-            "desc": "WIS Pay leverages the Conflux Network to provide a transparent, secure, and efficient settlement layer.",
+            "title": "WIS Pay Innovative Features",
+            "desc": "Built on the high-performance Conflux blockchain, we offer an integrated platform for payment, exchange, escrow, and credit.",
             "point1": {
-                "title": "1. Efficient Stablecoin Settlement",
+                "title": "1. Multi-Currency Smart Aggregated Payment",
                 "items": [
-                    "<strong>Near-Instant:</strong> Complete cross-border payments in minutes.",
-                    "<strong>Fixed Costs:</strong> Extremely low transaction fees regardless of amount."
+                    "<strong>Seamless Exchange:</strong> Supports payments in USDT, USDC, CFX, etc. The system automatically swaps them to the settlement stablecoin AXCNH via on-chain AMM.",
+                    "<strong>Instant Settlement:</strong> Leverages Conflux's high TPS for real-time clearing of cross-border funds.",
+                    "<strong>Ultra-Low Fees:</strong> Eliminating intermediaries, on-chain gas fees are nearly zero, significantly reducing trade costs."
                 ]
             },
             "point2": {
-                "title": "2. On-chain Financing Credit",
+                "title": "2. Smart Contract Escrow & Credit System",
                 "items": [
-                    "<strong>Credit Porting:</strong> Your on-chain trade history becomes your credit asset.",
-                    "<strong>Collateral-Free:</strong> Access liquidity based on verified trade flows."
+                    "<strong>Decentralized Escrow:</strong> Funds are locked in smart contracts and released only when preset conditions (e.g., shipment confirmation) are met, protecting both parties.",
+                    "<strong>Compliance Flow:</strong> Built-in KYC/KYB verification and real-time on-chain auditing ensure every transaction meets regulatory requirements.",
+                    "<strong>On-Chain Credit Profile:</strong> Accumulate on-chain reputation based on real trade flows, supporting future unsecured trade financing."
                 ]
             }
         }
