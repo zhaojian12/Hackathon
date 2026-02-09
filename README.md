@@ -7,9 +7,8 @@
 ### 🔐 钱包支持
 - **Fluent Wallet** - Conflux 原生
 
-### 🌐 多网络支持
-- **Conflux eSpace Testnet** - 用于 MetaMask/OKX
-- **Conflux Core Testnet** - 用于 Fluent
+### 🌐 网络支持
+- **Conflux eSpace Testnet
 
 ### 🎯 核心功能
 - ✅ 创建去中心化交易
@@ -22,7 +21,7 @@
 ## 🚀 快速开始
 
 ### 前置要求
-- Node.js 16+
+- Node.js 18+
 - npm 或 yarn
 - 任一支持的钱包扩展
 
