@@ -4,9 +4,7 @@
 
 ## ✨ 特性
 
-### 🔐 多钱包支持
-- **MetaMask**（狐狸钱包）- EVM 兼容
-- **OKX Wallet** - EVM 兼容
+### 🔐 钱包支持
 - **Fluent Wallet** - Conflux 原生
 
 ### 🌐 多网络支持
