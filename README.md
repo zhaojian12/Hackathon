@@ -1,160 +1,110 @@
-# Hackathon - 去中心化交易平台
+# WIS Pay - 下一代去中心化跨境支付平台
 
-一个支持多钱包的去中心化交易平台，基于 Conflux 区块链构建。
+WIS Pay 是一个基于 Conflux 区块链构建的创新型跨境支付与贸易融资平台。我们致力于消除传统跨境支付的痛点，通过结合 **EIP-7702 无感钱包** 技术与 **链上合规流程**，为全球中小企业提供即时、低成本且合规的资金结算体验。
 
-## ✨ 特性
+## ✨ 核心特性
 
-### 🔐 钱包支持
-- **Fluent Wallet** - Conflux 原生
+### 🔐 EIP-7702 无感钱包 (Invisible Wallet)
+打破 Web2 与 Web3 的界限，用户无需管理复杂的助记词或私钥。
+- **社交登录**：支持 Google, Apple ID, 手机号验证码直接登录。
+- **账户抽象**：自动为用户生成并管理链上账户，体验如传统 App 般丝滑。
+- **零 Gas 费体验**：通过代付机制，用户无需持有原生代币即可发起交易。
 
-### 🌐 网络支持
-- **Conflux eSpace Testnet
+### 🛡️ 全流程合规 (Compliance Flow)
+专为跨境贸易设计的合规架构，确保资金流转符合监管要求。
+- **KYC/AML 集成**：内置身份验证与反洗钱筛查流程。
+- **白名单机制**：只有通过验证的实体才能参与特定的贸易活动。
+- **链上审计**：每一笔交易都可追踪、可审计，满足审计需求。
 
-### 🎯 核心功能
-- ✅ 创建去中心化交易
-- ✅ 接受和管理交易
-- ✅ 自动托管和释放资金
-- ✅ 多语言支持（中文/英文/繁体中文）
-- ✅ 实时余额显示
-- ✅ 交易状态追踪
+### 💰 供应链金融 (Supply Chain Financing)
+释放供应链中的流动性，解决中小企业融资难问题。
+- **基于信用的融资**：利用链上交易历史作为信用凭证，快速获取贷款。
+- **订单融资**：支持基于采购订单 (PO) 的提前放款。
+- **透明费率**：智能合约自动执行还款，费率透明不可篡改。
+
+### 💱 多币种实时结算
+- 支持 **CFX**, **CNH** (离岸人民币), **USDT**, **USDC** 等主流资产。
+- 集成 Chainlink 预言机获取实时汇率，确保兑换价格公正透明。
+
+### ⭐ 商户信誉系统
+- 每一笔成功的交易都会增加商户的链上信誉分。
+- 透明的评价机制，帮助买家筛选优质供应商。
+
+## 🏗️ 系统架构
+
+### 前端技术栈
+- **核心框架**: [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **语言**: TypeScript
+- **Web3 集成**: [Wagmi](https://wagmi.sh/) + [Viem](https://viem.sh/)
+- **UI 组件**: Lucide React (图标), 自定义 Glassmorphism 设计风格
+- **国际化**: i18next (支持 中文/英文/繁体)
+
+### 区块链后端
+- **网络**: Conflux eSpace (EVM 兼容)
+- **智能合约**: Solidity
+- **开发框架**: Hardhat
+- **关键标准**: ERC-20, EIP-7702 (账户抽象)
 
 ## 🚀 快速开始
 
 ### 前置要求
 - Node.js 18+
+- Node.js 18+
 - npm 或 yarn
-- 任一支持的钱包扩展
 
-### 安装
+### 安装步骤
 
-```bash
-# 克隆项目
-git clone <repository-url>
-cd Hackathon/frontend
+1. **克隆项目**
+   ```bash
+   git clone <repository-url>
+   cd Hackathon
+   ```
 
-# 安装依赖
-npm install
+2. **前端启动**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   应用将在 `http://localhost:5173` 启动。
 
-# 启动开发服务器
-npm run dev
-```
+3. **后端部署 (可选)**
+   如果您需要本地部署合约：
+   ```bash
+   cd backend
+   npm install
+   npx hardhat node
+   # 在新终端窗口部署合约
+   npx hardhat run scripts/deploy.js --network localhost
+   ```
 
-应用将在 http://localhost:5173 启动
-
-### 详细指南
-- 📖 [快速开始指南](./frontend/QUICKSTART.md)
-- 📖 [快速开始（中文）](./frontend/快速开始.md)
-- 📖 [完整安装指南](./frontend/INSTALLATION.md)
-
-## 📚 文档
-
-### 用户文档
-- [快速开始](./frontend/QUICKSTART.md) - 5 分钟上手指南
-- [快速开始（中文）](./frontend/快速开始.md) - 中文版快速指南
-- [安装指南](./frontend/INSTALLATION.md) - 详细安装步骤
-
-### 开发文档
-- [钱包集成](./frontend/WALLET_INTEGRATION.md) - 技术实现详解
-- [项目总结](./MULTI_WALLET_SUMMARY.md) - 架构和变更说明
-- [更新日志](./CHANGELOG.md) - 版本历史
-
-## 🏗️ 项目结构
+## 📂 项目结构
 
 ```
 Hackathon/
-├── frontend/                 # 前端应用
+├── frontend/                 # React 前端应用
 │   ├── src/
-│   │   ├── components/      # React 组件
-│   │   ├── config/          # 配置文件
-│   │   ├── contracts/       # 合约 ABI
-│   │   ├── locales/         # 国际化文件
-│   │   ├── App.tsx          # 主应用
-│   │   └── AppContext.tsx   # 应用上下文
-│   ├── QUICKSTART.md        # 快速开始
-│   ├── INSTALLATION.md      # 安装指南
-│   └── WALLET_INTEGRATION.md # 钱包集成文档
-├── backend/                 # 后端（智能合约）
-│   ├── contracts/           # Solidity 合约
-│   └── scripts/             # 部署脚本
-├── MULTI_WALLET_SUMMARY.md  # 项目总结
-└── CHANGELOG.md             # 更新日志
+│   │   ├── components/      # 核心组件 (Dashboard, TradeList, AuthScreen 等)
+│   │   ├── contracts/       # 合约 ABI 与地址配置
+│   │   ├── locales/         # 多语言文件
+│   │   └── ...
+│   ├── public/              # 静态资源
+│   └── ...
+├── backend/                  # 智能合约与部署脚本
+│   ├── contracts/           # Solidity 源码 (Escrow, Trade, Token)
+│   ├── scripts/             # 部署脚本
+│   └── test/                # 合约测试
+└── README.md                # 项目文档
 ```
 
-## 🔧 技术栈
+## 🤝 贡献指南
 
-### 前端
-- **React 19** - UI 框架
-- **TypeScript** - 类型安全
-- **Vite** - 构建工具
-- **Wagmi** - EVM 钱包连接
-- **js-conflux-sdk** - Conflux SDK
-- **React i18next** - 国际化
-
-### 区块链
-- **Conflux eSpace** - EVM 兼容层
-- **Conflux Core** - 原生 Conflux 链
-- **Solidity** - 智能合约语言
-
-## 🎮 使用方法
-
-### 1. 连接钱包
-1. 点击 "Connect Wallet" 按钮
-2. 选择你的钱包（自动检测）
-3. 授权连接并切换网络
-
-### 2. 创建交易
-1. 填写交易信息
-2. 选择代币类型
-3. 输入金额和接收地址
-4. 点击 "创建交易"
-
-### 3. 管理交易
-- **接受交易**：作为接收方确认
-- **取消交易**：作为创建者取消
-- **完成交易**：双方确认后完成
-
-## 🌍 支持的网络
-
-### Conflux eSpace Testnet
-- **Chain ID**: 71
-- **RPC**: https://evmtestnet.confluxrpc.com
-- **浏览器**: https://evmtestnet.confluxscan.io
-- **水龙头**: https://efaucet.confluxnetwork.org/
-
-### Conflux Core Testnet
-- **Network ID**: 1
-- **RPC**: https://test.confluxrpc.com
-- **浏览器**: https://testnet.confluxscan.io
-- **水龙头**: https://faucet.confluxnetwork.org/
-
-## 🔐 安全性
-
-- ✅ 仅支持测试网络
-- ✅ 智能合约托管资金
-- ✅ 用户完全控制私钥
-- ✅ 开源可审计
-
-## 🤝 贡献
-
-欢迎贡献！请查看我们的贡献指南。
+欢迎提交 Issue 或 Pull Request 来改进 WIS Pay！
 
 ## 📄 许可证
 
 MIT License
 
-## 🆘 支持
-
-遇到问题？
-1. 查看 [快速开始指南](./frontend/QUICKSTART.md)
-2. 阅读 [常见问题](./frontend/INSTALLATION.md#故障排除)
-3. 提交 GitHub Issue
-
-## 🙏 致谢
-
-- Conflux Network
-- AttentionLive 项目（参考实现）
-- 开源社区
-
 ---
 
-**注意**：本项目仅用于测试环境，请勿在主网使用真实资产。
+**注意**：本项目为 Hackathon 参赛作品，目前部署于 Conflux eSpace 测试网，请勿用于真实资产交易。
