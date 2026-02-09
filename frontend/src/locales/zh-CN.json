@@ -12,7 +12,10 @@
         "minting_in_progress": "正在领取中...",
         "minting_token": "正在领取 1000 {{token}}...",
         "starting_mint_for_account": "开始为账户领取: {{account}}",
-        "mint_success_all": "成功领取所有测试币！"
+        "mint_success_all": "成功领取所有测试币！",
+        "insufficient_gas_title": "CFX 余额不足",
+        "insufficient_gas_desc": "您需要少量的 CFX 作为燃料费 (Gas Fee) 才能领取测试币。\n\n检测到您的余额不足，请前往官方水龙头领取 CFX。",
+        "get_cfx_btn": "领取 CFX"
     },
     "wallet": {
         "connect": "连接钱包",

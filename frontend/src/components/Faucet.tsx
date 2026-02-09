@@ -3,6 +3,7 @@ import { useApp } from '../AppContext';
 import { RefreshCw, Droplets, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ethers } from 'ethers';
+import { InfoModal } from './InfoModal';
 
 export const Faucet = () => {
     const {
@@ -15,12 +16,21 @@ export const Faucet = () => {
     const { t } = useTranslation();
     const [minting, setMinting] = useState(false);
     const [status, setStatus] = useState<{ type: 'success' | 'error' | 'info' | null, message: string | null }>({ type: null, message: null });
+    const [showGasModal, setShowGasModal] = useState(false);
+    const { balance } = useApp();
 
     const handleMint = async () => {
         if (!account) {
             setStatus({ type: 'error', message: t('common.connect_first') });
             return;
         }
+
+        // Check for sufficient CFX for gas (using 0.002 CFX as safe threshold)
+        if (parseFloat(balance) < 0.002) {
+            setShowGasModal(true);
+            return;
+        }
+
         setMinting(true);
         setStatus({ type: 'info', message: t('faucet.minting_in_progress') });
 
@@ -118,6 +128,18 @@ export const Faucet = () => {
             >
                 {minting ? <Loader2 className="animate-spin" /> : <Droplets size={24} />}
             </button>
+
+            <InfoModal
+                isOpen={showGasModal}
+                title={t('faucet.insufficient_gas_title')}
+                message={t('faucet.insufficient_gas_desc')}
+                onConfirm={() => {
+                    window.open('https://efaucet.confluxnetwork.org/', '_blank');
+                    setShowGasModal(false);
+                }}
+                buttonText={t('faucet.get_cfx_btn')}
+                iconType="info"
+            />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { ethers, type JsonRpcProvider } from 'ethers';
+import { ethers } from 'ethers';
 import { getOrCreateLocalAccount, getEthersSignerFromLocalAccount, type LocalAccount } from './utils/accountUtils';
 import EscrowArtifact from './contracts/Escrow.json';
 import MockERC20Artifact from './contracts/MockERC20.json';

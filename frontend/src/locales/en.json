@@ -12,7 +12,10 @@
         "minting_in_progress": "Minting in progress...",
         "minting_token": "Minting 1000 {{token}}...",
         "starting_mint_for_account": "Starting minting for account: {{account}}",
-        "mint_success_all": "Successfully minted all test tokens!"
+        "mint_success_all": "Successfully minted all test tokens!",
+        "insufficient_gas_title": "Insufficient CFX Balance",
+        "insufficient_gas_desc": "You need a small amount of CFX for gas fees to mint test tokens.\n\nYour balance is insufficient. Please visit the official faucet to get CFX.",
+        "get_cfx_btn": "Get CFX"
     },
     "wallet": {
         "connect": "Connect Fluent",

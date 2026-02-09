@@ -22,7 +22,7 @@ type TabType = 'market' | 'exchange' | 'payment' | 'orders' | 'performance' | 'c
 
 export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     const { t } = useTranslation();
-    const { userRole, setUserRole, escrowContract, account, currencyConverterContract } = useApp();
+    const { userRole, escrowContract, account, currencyConverterContract } = useApp();
     const [prefillOrder, setPrefillOrder] = useState<any>(null);
     const [purchaseLoading, setPurchaseLoading] = useState(false);
     const [purchaseSuccess, setPurchaseSuccess] = useState(false);
